@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -334,9 +324,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    alert: (0, _index.modalify)(Alert),
 	    closeableAlert: (0, _index.modalify)(CloseableAlert),
 	    customAlert: (0, _index.modalify)(Alert, {
-	        width: '400px',
-	        backgroundColor: 'transparent',
-	        border: '2px solid #fff'
+	        modalStyles: {
+	            width: '200px',
+	            backgroundColor: 'transparent',
+	            // border: '2px solid #fff',
+	            position: 'absolute',
+	            left: '10px',
+	            top: '10px'
+	        },
+
+	        modalTransitionShowStyles: {
+	            transform: 'translate(0, 0)'
+	        },
+
+	        modalTransitionHideStyles: {
+	            transform: 'translate(0, -40px)'
+	        }
 	    }),
 	    confirm: (0, _index.modalify)(Confirm),
 	    nestedA: (0, _index.modalify)(NestedA),
@@ -20061,10 +20064,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TransitionStack = _TransitionStack3.default;
 	exports.ModalFactory = _ModalFactory3.default;
 
-	var defaultModalFactory = new _ModalFactory3.default({
-	    duration: 300,
-	    container: document.body
-	});
+	var defaultModalFactory = new _ModalFactory3.default();
 
 	var modalify = exports.modalify = function modalify(Component, modalStyles) {
 	    return defaultModalFactory.create(Component, modalStyles);
@@ -20186,6 +20186,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	Object.defineProperty(exports, "__esModule", {
@@ -20234,11 +20236,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            this.hasInited = true;
 	            var element = document.createElement('div');
-	            (0, _utils.setStyle)(element, this.styles.base);
-	            (0, _utils.setStyle)(element, this.styles.hide);
+	            (0, _utils.setStyle)(element, _extends({}, this.styles.base, this.styles.hide, {
+	                display: 'none'
+	            }));
 	            this.transition = new _Transition2.default({
 	                element: element,
-	                styles: this.styles,
+	                styles: {
+	                    show: this.styles.show,
+	                    hide: this.styles.hide
+	                },
 	                duration: this.duration
 	            });
 	            this.container.appendChild(element);
@@ -20427,26 +20433,57 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	/*
-
-	options:
-
-	    container: container to place modals, default is document.body
-	    duration: animation duration (millisecond)
-
-	  */
-
 	var defaultOptions = {
-	    duration: 300
+	    /// overlay options ///   
+
+	    overlayTransitionDuration: 300,
+
+	    overlayTransitionShowStyles: {
+	        backgroundColor: 'rgba(1,1,1,0.6)'
+	    },
+
+	    overlayTransitionHideStyles: {
+	        backgroundColor: 'rgba(1,1,1,0)'
+	    },
+
+	    overlayStyles: {
+	        position: 'fixed',
+	        left: 0,
+	        top: 0,
+	        width: '100%',
+	        height: '100%',
+	        zIndex: 1000
+	    },
+
+	    /// modal options ///
+
+	    modalTransitionDuration: 300,
+
+	    modalTransitionShowStyles: {
+	        transform: 'translate(0, 0)',
+	        opacity: 1
+	    },
+
+	    modalTransitionHideStyles: {
+	        transform: 'translate(0, -20px)',
+	        opacity: 0
+	    },
+
+	    modalStyles: {
+	        width: '600px',
+	        backgroundColor: 'white',
+	        borderRadius: '5px',
+	        margin: '3.5rem auto'
+	    }
 	};
 
 	var ModalFactory = function () {
 	    function ModalFactory(options) {
 	        _classCallCheck(this, ModalFactory);
 
-	        Object.assign(this, defaultOptions, options);
+	        this.options = _extends({}, defaultOptions, options);
 
-	        var transitionOverlay = this.createTransitionOverlay();
+	        var transitionOverlay = this.createTransitionOverlay(this.options);
 
 	        // use transitionOverlay as bottom transition
 	        var modalStack = new _TransitionStack2.default({
@@ -20460,62 +20497,39 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    _createClass(ModalFactory, [{
 	        key: 'createTransitionOverlay',
-	        value: function createTransitionOverlay() {
+	        value: function createTransitionOverlay(options) {
 	            return new _TransitionOverlay2.default({
 	                styles: {
-	                    base: {
-	                        display: 'none',
-	                        position: 'fixed',
-	                        left: 0,
-	                        top: 0,
-	                        width: '100%',
-	                        height: '100%',
-	                        zIndex: 1000,
-
-	                        overflow: 'auto',
-	                        transition: 'all ' + this.duration / 1000 + 's ease-in'
-	                    },
-	                    show: {
-	                        backgroundColor: 'rgba(1,1,1,0.6)'
-	                    },
-	                    hide: {
-	                        backgroundColor: 'rgba(1,1,1,0)'
-	                    }
+	                    base: _extends({}, options.overlayStyles, {
+	                        transition: 'all ' + options.overlayTransitionDuration + 'ms ease-in'
+	                    }),
+	                    show: options.overlayTransitionShowStyles,
+	                    hide: options.overlayTransitionHideStyles
 	                },
-	                duration: this.duration,
-	                container: this.container
+	                duration: options.overlayTransitionDuration,
+	                container: document.body
 	            });
 	        }
 	    }, {
 	        key: 'createTransitionModal',
-	        value: function createTransitionModal(modalStyles) {
+	        value: function createTransitionModal(options) {
 	            return new _TransitionElement2.default({
 	                styles: {
-	                    base: _extends({
-	                        display: 'none',
-	                        width: '600px',
-	                        backgroundColor: 'white',
-	                        borderRadius: '5px',
-	                        margin: '3.5rem auto',
-	                        transition: 'all ' + this.duration / 1000 + 's ease-in'
-	                    }, modalStyles),
-	                    show: {
-	                        transform: 'translate(0, 0)',
-	                        opacity: 1
-	                    },
-	                    hide: {
-	                        transform: 'translate(0, -20px)',
-	                        opacity: 0
-	                    }
+	                    base: _extends({}, options.modalStyles, {
+	                        transition: 'all ' + options.modalTransitionDuration + 'ms ease-in'
+	                    }),
+	                    show: options.modalTransitionShowStyles,
+	                    hide: options.modalTransitionHideStyles
 	                },
-	                duration: this.duration,
+	                duration: options.modalTransitionDuration,
 	                container: this.transitionOverlay.getElement()
 	            });
 	        }
 	    }, {
 	        key: 'create',
-	        value: function create(Component, modalStyles) {
-	            var transitionModal = this.createTransitionModal(modalStyles);
+	        value: function create(Component, options) {
+	            var transitionModal = this.createTransitionModal(_extends({}, this.options, options));
+
 	            var modalStack = this.modalStack;
 
 	            return function (props) {
@@ -20544,6 +20558,4 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = ModalFactory;
 
 /***/ }
-/******/ ])
-});
-;
+/******/ ]);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
-import {modalify} from '../index'
+import {modalify} from '../src/index'
 
 class Alert extends Component {
     render() {
@@ -109,9 +109,22 @@ let modals = {
     alert: modalify(Alert),
     closeableAlert: modalify(CloseableAlert),
     customAlert: modalify(Alert, {
-        width: '400px',
-        backgroundColor: 'transparent',
-        border: '2px solid #fff'
+        modalStyles: {
+            width: '200px',
+            backgroundColor: 'transparent',
+            // border: '2px solid #fff',
+            position: 'absolute',
+            left: '10px',
+            top: '10px'
+        },
+
+        modalTransitionShowStyles: {
+            transform: 'translate(0, 0)',
+        },
+
+        modalTransitionHideStyles: {
+            transform: 'translate(0, -40px)',
+        }
     }),
     confirm: modalify(Confirm),
     nestedA: modalify(NestedA),

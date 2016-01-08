@@ -5,25 +5,59 @@ import TransitionStack from './TransitionStack'
 import React, {Component} from 'react'
 import {render} from 'react-dom'
 
-/*
-
-options:
-
-    container: container to place modals, default is document.body
-    duration: animation duration (millisecond)
-
-  */
- 
 
 const defaultOptions = {
-    duration: 300
+    /// overlay options ///    
+
+    overlayTransitionDuration: 300,
+
+    overlayTransitionShowStyles: {
+        backgroundColor: 'rgba(1,1,1,0.6)'        
+    },
+
+    overlayTransitionHideStyles: {
+        backgroundColor: 'rgba(1,1,1,0)'        
+    },
+
+    overlayStyles: {
+        position: 'fixed',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1000,
+    },
+
+    /// modal options ///
+    
+    modalTransitionDuration: 300,
+
+    modalTransitionShowStyles: {
+        transform: 'translate(0, 0)',
+        opacity: 1
+    },
+
+    modalTransitionHideStyles: {
+        transform: 'translate(0, -20px)',
+        opacity: 0      
+    },
+
+    modalStyles: {
+        width: '600px',
+        backgroundColor: 'white',
+        borderRadius: '5px',
+        margin: '3.5rem auto',
+    }
 };
 
 export default class ModalFactory {
     constructor(options) {
-        Object.assign(this, defaultOptions, options);
+        this.options = {
+            ...defaultOptions,
+            ...options
+        };
 
-        let transitionOverlay = this.createTransitionOverlay();
+        let transitionOverlay = this.createTransitionOverlay(this.options);
 
         // use transitionOverlay as bottom transition
         let modalStack = new TransitionStack({
@@ -35,61 +69,42 @@ export default class ModalFactory {
         this.modalStack = modalStack;
     }
 
-    createTransitionOverlay() {
+    createTransitionOverlay(options) {
         return new TransitionOverlay({
             styles: {
                 base: {
-                    display: 'none',
-                    position: 'fixed',
-                    left: 0,
-                    top: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 1000,
-
-                    overflow: 'auto',
-                    transition: 'all ' + this.duration / 1000 + 's ease-in'
+                    ...options.overlayStyles,
+                    transition: 'all ' + options.overlayTransitionDuration + 'ms ease-in'
                 },
-                show: {
-                    backgroundColor: 'rgba(1,1,1,0.6)'
-                },
-                hide: {
-                    backgroundColor: 'rgba(1,1,1,0)'
-                }
+                show: options.overlayTransitionShowStyles,
+                hide: options.overlayTransitionHideStyles
             },
-            duration: this.duration,
-            container: this.container
+            duration: options.overlayTransitionDuration,
+            container: document.body
         });
     }
 
-    createTransitionModal(modalStyles) {
+    createTransitionModal(options) {
         return new TransitionElement({
             styles: {
                 base: {
-                    display: 'none',
-                    width: '600px',
-                    backgroundColor: 'white',
-                    borderRadius: '5px',
-                    margin: '3.5rem auto',
-                    transition: 'all ' + this.duration / 1000 + 's ease-in',
-                    ...modalStyles
+                    ...options.modalStyles,
+                    transition: 'all ' + options.modalTransitionDuration + 'ms ease-in'
                 },
-                show: {
-                    transform: 'translate(0, 0)',
-                    opacity: 1
-                },
-                hide: {
-                    transform: 'translate(0, -20px)',
-                    opacity: 0
-                }
+                show: options.modalTransitionShowStyles,
+                hide: options.modalTransitionHideStyles
             },
-            duration: this.duration,
+            duration: options.modalTransitionDuration,
             container: this.transitionOverlay.getElement()
         });  
     }
 
-    create(Component, modalStyles) {
-        let transitionModal = this.createTransitionModal(modalStyles);
+    create(Component, options) {
+        let transitionModal = this.createTransitionModal({
+            ...this.options,
+            ...options
+        });
+
         let modalStack = this.modalStack;
 
         return (props) => new Promise((resolve) => {

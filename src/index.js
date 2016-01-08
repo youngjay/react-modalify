@@ -6,10 +6,7 @@ export ModalFactory from './ModalFactory'
 
 import ModalFactory from './ModalFactory'
 
-const defaultModalFactory = new ModalFactory({
-    duration: 300,
-    container: document.body
-});
+const defaultModalFactory = new ModalFactory();
 
 export const modalify = (Component, modalStyles) => {
     return defaultModalFactory.create(Component, modalStyles);

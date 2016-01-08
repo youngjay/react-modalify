@@ -1,8 +1,7 @@
 var webpackConfig = {
     output: {
         path: './dist',
-        filename: 'examples.js',
-        libraryTarget: 'umd'
+        filename: 'examples.js'
     },
 
     module: {
