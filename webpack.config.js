@@ -1,7 +1,7 @@
 var webpackConfig = {
     output: {
-        path: './dist',
-        filename: 'examples.js'
+        path: './examples',
+        filename: 'examples-dist.js'
     },
 
     module: {
