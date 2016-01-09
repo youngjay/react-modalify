@@ -448,7 +448,7 @@
 	                        'button',
 	                        { onClick: function onClick() {
 	                                modals.confirm().then(function (returnValue) {
-	                                    notify('You choose [' + returnValue + ']');
+	                                    alert('You choose [' + returnValue + ']');
 	                                });
 	                            } },
 	                        'confirm'

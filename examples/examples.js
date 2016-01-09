@@ -171,7 +171,7 @@ class Examples extends Component {
                 <li>                    
                     <button onClick={() => {
                         modals.confirm().then((returnValue) => {
-                            notify(`You choose [${returnValue}]`);
+                            alert(`You choose [${returnValue}]`);
                         });
                     }}>confirm</button>
                 </li>
