@@ -43,6 +43,8 @@ notify()
 
 ## Features
 
+### [examples](http://youngjay.github.io/react-modalify/examples/examples.html)
+
 ### Call modal() return a promise
 
 ```xml
