@@ -102,6 +102,12 @@ receiveProps({
 
 ```react-modalify``` manage a stack of modals. So You can call modal() in a modal.
 
+## Notify the component to update when modal() was called
+
+```react-modalify``` will set component's ```props``` every time it was called.
+
+According to the [react life cycle](http://facebook.github.io/react/docs/component-specs.html), the proper phases you may put your code are ```componentDidMount``` (for the first time) and ```componentWillReceiveProps```(for the later times)
+
 ## Thoughts for Modals in react
 
 Sorry, Chinese version only.
