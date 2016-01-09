@@ -100,7 +100,7 @@ receiveProps({
 
 ### Nested modals support
 
-```react-modalify``` manage a stack of modals. So You can call modal() in a modal.
+```react-modalify``` manage a stack of modals. So you can call modal() in a modal.
 
 ## Notify the component to update when modal() was called
 
