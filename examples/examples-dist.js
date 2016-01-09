@@ -325,12 +325,8 @@
 	    closeableAlert: (0, _index.modalify)(CloseableAlert),
 	    customAlert: (0, _index.modalify)(Alert, {
 	        modalStyles: {
-	            width: '200px',
-	            backgroundColor: 'transparent',
-	            // border: '2px solid #fff',
-	            position: 'absolute',
-	            left: '10px',
-	            top: '10px'
+	            width: '300px',
+	            backgroundColor: '#00bcd4'
 	        },
 
 	        modalTransitionShowStyles: {
@@ -20034,37 +20030,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.modalify = exports.ModalFactory = exports.TransitionStack = exports.TransitionOverlay = exports.TransitionElement = exports.Transition = undefined;
+	exports.modalify = exports.ModalFactory = undefined;
 
-	var _Transition2 = __webpack_require__(160);
+	var _ModalFactory = __webpack_require__(165);
 
-	var _Transition3 = _interopRequireDefault(_Transition2);
-
-	var _TransitionElement2 = __webpack_require__(162);
-
-	var _TransitionElement3 = _interopRequireDefault(_TransitionElement2);
-
-	var _TransitionOverlay2 = __webpack_require__(163);
-
-	var _TransitionOverlay3 = _interopRequireDefault(_TransitionOverlay2);
-
-	var _TransitionStack2 = __webpack_require__(164);
-
-	var _TransitionStack3 = _interopRequireDefault(_TransitionStack2);
-
-	var _ModalFactory2 = __webpack_require__(165);
-
-	var _ModalFactory3 = _interopRequireDefault(_ModalFactory2);
+	var _ModalFactory2 = _interopRequireDefault(_ModalFactory);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.Transition = _Transition3.default;
-	exports.TransitionElement = _TransitionElement3.default;
-	exports.TransitionOverlay = _TransitionOverlay3.default;
-	exports.TransitionStack = _TransitionStack3.default;
-	exports.ModalFactory = _ModalFactory3.default;
+	exports.ModalFactory = _ModalFactory2.default;
 
-	var defaultModalFactory = new _ModalFactory3.default();
+	var defaultModalFactory = new _ModalFactory2.default();
 
 	var modalify = exports.modalify = function modalify(Component, modalStyles) {
 	    return defaultModalFactory.create(Component, modalStyles);
@@ -20155,7 +20131,8 @@
 	            (0, _utils.setStyle)(this.element, styles);
 	            this.inTransition = true;
 
-	            // transitionend 有时候会失效，所以这里要加一个事后check
+	            // "transitionend" don't work sometimes.
+	            // additional check
 	            setTimeout(function () {
 	                _this4.checkTransitionEnd();
 	            }, this.duration + 100);
@@ -20171,13 +20148,28 @@
 /* 161 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	var setStyle = exports.setStyle = function setStyle(element, styles) {
 	    Object.assign(element.style, styles);
+	};
+
+	var mixDeep = exports.mixDeep = function mixDeep(a, b) {
+	    if (b === undefined) {
+	        return a;
+	    }
+	    if (a && b && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && (typeof b === 'undefined' ? 'undefined' : _typeof(b)) === 'object') {
+	        return Object.keys(a).concat(Object.keys(b)).reduce(function (ret, key) {
+	            ret[key] = mixDeep(a[key], b[key]);
+	            return ret;
+	        }, {});
+	    }
+	    return b;
 	};
 
 /***/ },
@@ -20315,6 +20307,7 @@
 	    _createClass(TransitionOverlay, [{
 	        key: 'open',
 	        value: function open() {
+	            this.containerOverflow = this.container.style.overflow;
 	            (0, _utils.setStyle)(this.container, {
 	                overflow: 'hidden'
 	            });
@@ -20324,7 +20317,7 @@
 	        key: 'close',
 	        value: function close() {
 	            (0, _utils.setStyle)(this.container, {
-	                overflow: ''
+	                overflow: this.containerOverflow
 	            });
 	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'close', this).call(this);
 	        }
@@ -20349,21 +20342,11 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var passPromise = new Promise(function (resolve) {
-	    resolve();
-	});
-
-	var defaultBottomTransition = {
-	    open: passPromise,
-	    close: passPromise
-	};
-
 	var TransitionStack = function () {
 	    function TransitionStack(bottomTransition) {
 	        _classCallCheck(this, TransitionStack);
 
-	        this.stack = [];
-	        this.stack.push(bottomTransition || defaultBottomTransition);
+	        this.stack = [bottomTransition];
 	    }
 
 	    _createClass(TransitionStack, [{
@@ -20423,6 +20406,8 @@
 
 	var _TransitionStack2 = _interopRequireDefault(_TransitionStack);
 
+	var _utils = __webpack_require__(161);
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -20465,7 +20450,7 @@
 	    },
 
 	    modalTransitionHideStyles: {
-	        transform: 'translate(0, -20px)',
+	        transform: 'translate(0, -3.5rem)',
 	        opacity: 0
 	    },
 
@@ -20481,7 +20466,7 @@
 	    function ModalFactory(options) {
 	        _classCallCheck(this, ModalFactory);
 
-	        this.options = _extends({}, defaultOptions, options);
+	        this.options = (0, _utils.mixDeep)(defaultOptions, options);
 
 	        var transitionOverlay = this.createTransitionOverlay(this.options);
 
@@ -20528,7 +20513,7 @@
 	    }, {
 	        key: 'create',
 	        value: function create(Component, options) {
-	            var transitionModal = this.createTransitionModal(_extends({}, this.options, options));
+	            var transitionModal = this.createTransitionModal((0, _utils.mixDeep)(this.options, options));
 
 	            var modalStack = this.modalStack;
 

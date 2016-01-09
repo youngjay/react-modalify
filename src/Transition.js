@@ -54,7 +54,8 @@ export default class Transition {
         setStyle(this.element, styles);
         this.inTransition = true;
 
-        // transitionend 有时候会失效，所以这里要加一个事后check
+        // "transitionend" don't work sometimes.
+        // additional check
         setTimeout(() => {
             this.checkTransitionEnd();
         }, this.duration + 100);

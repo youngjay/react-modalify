@@ -1,16 +1,6 @@
-let passPromise = new Promise((resolve) => {
-    resolve();
-});
-
-let defaultBottomTransition = {
-    open: passPromise,
-    close: passPromise
-};
-
 export default class TransitionStack {
     constructor(bottomTransition) {
-        this.stack = [];
-        this.stack.push(bottomTransition || defaultBottomTransition);
+        this.stack = [bottomTransition];
     }
 
     push(transition) {    

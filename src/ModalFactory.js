@@ -1,6 +1,7 @@
 import TransitionElement from './TransitionElement'
 import TransitionOverlay from './TransitionOverlay'
 import TransitionStack from './TransitionStack'
+import {mixDeep} from './utils'
 
 import React, {Component} from 'react'
 import {render} from 'react-dom'
@@ -38,7 +39,7 @@ const defaultOptions = {
     },
 
     modalTransitionHideStyles: {
-        transform: 'translate(0, -20px)',
+        transform: 'translate(0, -3.5rem)',
         opacity: 0      
     },
 
@@ -52,10 +53,7 @@ const defaultOptions = {
 
 export default class ModalFactory {
     constructor(options) {
-        this.options = {
-            ...defaultOptions,
-            ...options
-        };
+        this.options = mixDeep(defaultOptions, options);
 
         let transitionOverlay = this.createTransitionOverlay(this.options);
 
@@ -100,10 +98,7 @@ export default class ModalFactory {
     }
 
     create(Component, options) {
-        let transitionModal = this.createTransitionModal({
-            ...this.options,
-            ...options
-        });
+        let transitionModal = this.createTransitionModal(mixDeep(this.options, options));
 
         let modalStack = this.modalStack;
 

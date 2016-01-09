@@ -3,6 +3,7 @@ import TransitionElement from './TransitionElement'
 
 export default class TransitionOverlay extends TransitionElement {
     open() {
+        this.containerOverflow = this.container.style.overflow;
         setStyle(this.container, {
             overflow: 'hidden'
         });
@@ -11,7 +12,7 @@ export default class TransitionOverlay extends TransitionElement {
 
     close() {
         setStyle(this.container, {
-            overflow: ''
+            overflow: this.containerOverflow
         });
         return super.close();
     }

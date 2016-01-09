@@ -1,10 +1,6 @@
-export Transition from './Transition'
-export TransitionElement from './TransitionElement'
-export TransitionOverlay from './TransitionOverlay'
-export TransitionStack from './TransitionStack'
-export ModalFactory from './ModalFactory'
-
 import ModalFactory from './ModalFactory'
+
+export {ModalFactory}
 
 const defaultModalFactory = new ModalFactory();
 

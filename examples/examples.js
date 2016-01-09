@@ -110,12 +110,8 @@ let modals = {
     closeableAlert: modalify(CloseableAlert),
     customAlert: modalify(Alert, {
         modalStyles: {
-            width: '200px',
-            backgroundColor: 'transparent',
-            // border: '2px solid #fff',
-            position: 'absolute',
-            left: '10px',
-            top: '10px'
+            width: '300px',
+            backgroundColor: '#00bcd4'          
         },
 
         modalTransitionShowStyles: {
