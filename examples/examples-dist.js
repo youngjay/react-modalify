@@ -64,16 +64,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Alert = function (_Component) {
-	    _inherits(Alert, _Component);
+	var Notify = function (_Component) {
+	    _inherits(Notify, _Component);
 
-	    function Alert() {
-	        _classCallCheck(this, Alert);
+	    function Notify() {
+	        _classCallCheck(this, Notify);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Alert).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Notify).apply(this, arguments));
 	    }
 
-	    _createClass(Alert, [{
+	    _createClass(Notify, [{
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -82,7 +82,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'FBI WARNING!'
+	                    'Hello, Modalify!'
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -97,19 +97,19 @@
 	        }
 	    }]);
 
-	    return Alert;
+	    return Notify;
 	}(_react.Component);
 
-	var CloseableAlert = function (_Component2) {
-	    _inherits(CloseableAlert, _Component2);
+	var WithCloseIcon = function (_Component2) {
+	    _inherits(WithCloseIcon, _Component2);
 
-	    function CloseableAlert() {
-	        _classCallCheck(this, CloseableAlert);
+	    function WithCloseIcon() {
+	        _classCallCheck(this, WithCloseIcon);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(CloseableAlert).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(WithCloseIcon).apply(this, arguments));
 	    }
 
-	    _createClass(CloseableAlert, [{
+	    _createClass(WithCloseIcon, [{
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -118,7 +118,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'FBI WARNING!'
+	                    'Hello, Modalify!'
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -136,11 +136,47 @@
 	        }
 	    }]);
 
-	    return CloseableAlert;
+	    return WithCloseIcon;
 	}(_react.Component);
 
-	var Confirm = function (_Component3) {
-	    _inherits(Confirm, _Component3);
+	var ReceiveProps = function (_Component3) {
+	    _inherits(ReceiveProps, _Component3);
+
+	    function ReceiveProps() {
+	        _classCallCheck(this, ReceiveProps);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReceiveProps).apply(this, arguments));
+	    }
+
+	    _createClass(ReceiveProps, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'panel' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Hello, ' + this.props.user + '!'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: this.props.close },
+	                        'OK'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ReceiveProps;
+	}(_react.Component);
+
+	var Confirm = function (_Component4) {
+	    _inherits(Confirm, _Component4);
 
 	    function Confirm() {
 	        _classCallCheck(this, Confirm);
@@ -151,7 +187,7 @@
 	    _createClass(Confirm, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -159,7 +195,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'FBI WARNING!'
+	                    'Hello, Modalify!'
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -167,14 +203,14 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this4.props.close('Yes');
+	                                _this5.props.close('Yes');
 	                            } },
 	                        'Yes'
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this4.props.close('No');
+	                                _this5.props.close('No');
 	                            } },
 	                        'No'
 	                    )
@@ -186,8 +222,8 @@
 	    return Confirm;
 	}(_react.Component);
 
-	var NestedA = function (_Component4) {
-	    _inherits(NestedA, _Component4);
+	var NestedA = function (_Component5) {
+	    _inherits(NestedA, _Component5);
 
 	    function NestedA() {
 	        _classCallCheck(this, NestedA);
@@ -198,7 +234,7 @@
 	    _createClass(NestedA, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this6 = this;
+	            var _this7 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -221,7 +257,7 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this6.props.close();
+	                                _this7.props.close();
 	                            } },
 	                        'back'
 	                    )
@@ -233,8 +269,8 @@
 	    return NestedA;
 	}(_react.Component);
 
-	var NestedB = function (_Component5) {
-	    _inherits(NestedB, _Component5);
+	var NestedB = function (_Component6) {
+	    _inherits(NestedB, _Component6);
 
 	    function NestedB() {
 	        _classCallCheck(this, NestedB);
@@ -245,7 +281,7 @@
 	    _createClass(NestedB, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this8 = this;
+	            var _this9 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -268,7 +304,7 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this8.props.close();
+	                                _this9.props.close();
 	                            } },
 	                        'back'
 	                    )
@@ -280,8 +316,8 @@
 	    return NestedB;
 	}(_react.Component);
 
-	var NestedC = function (_Component6) {
-	    _inherits(NestedC, _Component6);
+	var NestedC = function (_Component7) {
+	    _inherits(NestedC, _Component7);
 
 	    function NestedC() {
 	        _classCallCheck(this, NestedC);
@@ -292,7 +328,7 @@
 	    _createClass(NestedC, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this10 = this;
+	            var _this11 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -308,7 +344,7 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this10.props.close();
+	                                _this11.props.close();
 	                            } },
 	                        'back'
 	                    )
@@ -321,9 +357,10 @@
 	}(_react.Component);
 
 	var modals = {
-	    alert: (0, _index.modalify)(Alert),
-	    closeableAlert: (0, _index.modalify)(CloseableAlert),
-	    customAlert: (0, _index.modalify)(Alert, {
+	    notify: (0, _index.modalify)(Notify),
+	    withCloseIcon: (0, _index.modalify)(WithCloseIcon),
+	    receiveProps: (0, _index.modalify)(ReceiveProps),
+	    customizeAlert: (0, _index.modalify)(Notify, {
 	        modalStyles: {
 	            width: '300px',
 	            backgroundColor: '#00bcd4'
@@ -343,8 +380,8 @@
 	    nestedC: (0, _index.modalify)(NestedC)
 	};
 
-	var Examples = function (_Component7) {
-	    _inherits(Examples, _Component7);
+	var Examples = function (_Component8) {
+	    _inherits(Examples, _Component8);
 
 	    function Examples() {
 	        _classCallCheck(this, Examples);
@@ -364,9 +401,9 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                modals.alert();
+	                                modals.notify();
 	                            } },
-	                        'alert'
+	                        'notify'
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -375,9 +412,9 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                modals.closeableAlert();
+	                                modals.withCloseIcon();
 	                            } },
-	                        'closeableAlert'
+	                        'withCloseIcon'
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -386,9 +423,22 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                modals.customAlert();
+	                                modals.receiveProps({
+	                                    user: 'Tom'
+	                                });
 	                            } },
-	                        'customAlert'
+	                        'receiveProps'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: function onClick() {
+	                                modals.customizeAlert();
+	                            } },
+	                        'customizeAlert'
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -398,7 +448,7 @@
 	                        'button',
 	                        { onClick: function onClick() {
 	                                modals.confirm().then(function (returnValue) {
-	                                    alert('You choose [' + returnValue + ']');
+	                                    notify('You choose [' + returnValue + ']');
 	                                });
 	                            } },
 	                        'confirm'

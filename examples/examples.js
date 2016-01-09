@@ -2,11 +2,11 @@ import React, {Component} from 'react'
 import {render} from 'react-dom'
 import {modalify} from '../src/index'
 
-class Alert extends Component {
+class Notify extends Component {
     render() {
         return (
             <div className="panel">
-                <h1>FBI WARNING!</h1>
+                <h1>Hello, Modalify!</h1>
                 <div>
                     <button onClick={this.props.close}>OK</button>
                 </div>
@@ -15,11 +15,11 @@ class Alert extends Component {
     }
 }
 
-class CloseableAlert extends Component {
+class WithCloseIcon extends Component {
     render() {
         return (
             <div className="panel">
-                <h1>FBI WARNING!</h1>
+                <h1>Hello, Modalify!</h1>
                 <div style={{
                     position: 'absolute',
                     right: '0.75rem',
@@ -35,11 +35,24 @@ class CloseableAlert extends Component {
     }
 }
 
+class ReceiveProps extends Component {
+    render() {
+        return (
+            <div className="panel">
+                <h1>{`Hello, ${this.props.user}!`}</h1>
+                <div>
+                    <button onClick={this.props.close}>OK</button>
+                </div>
+            </div>
+        )
+    }
+}
+
 class Confirm extends Component {
     render() {
         return (
             <div className="panel">
-                <h1>FBI WARNING!</h1>
+                <h1>Hello, Modalify!</h1>
                 <div>
                     <button onClick={() => {
                         this.props.close('Yes');
@@ -106,9 +119,10 @@ class NestedC extends Component {
 }
 
 let modals = {
-    alert: modalify(Alert),
-    closeableAlert: modalify(CloseableAlert),
-    customAlert: modalify(Alert, {
+    notify: modalify(Notify),
+    withCloseIcon: modalify(WithCloseIcon),
+    receiveProps: modalify(ReceiveProps),
+    customizeAlert: modalify(Notify, {
         modalStyles: {
             width: '300px',
             backgroundColor: '#00bcd4'          
@@ -134,23 +148,30 @@ class Examples extends Component {
             <ul>
                 <li>                    
                     <button onClick={() => {
-                        modals.alert();
-                    }}>alert</button>
+                        modals.notify();
+                    }}>notify</button>
                 </li>
                 <li>                    
                     <button onClick={() => {
-                        modals.closeableAlert();
-                    }}>closeableAlert</button>
+                        modals.withCloseIcon();
+                    }}>withCloseIcon</button>
                 </li>
                 <li>                    
                     <button onClick={() => {
-                        modals.customAlert();
-                    }}>customAlert</button>
+                        modals.receiveProps({
+                            user: 'Tom'
+                        });
+                    }}>receiveProps</button>
+                </li>
+                <li>                    
+                    <button onClick={() => {
+                        modals.customizeAlert();
+                    }}>customizeAlert</button>
                 </li>
                 <li>                    
                     <button onClick={() => {
                         modals.confirm().then((returnValue) => {
-                            alert(`You choose [${returnValue}]`);
+                            notify(`You choose [${returnValue}]`);
                         });
                     }}>confirm</button>
                 </li>
