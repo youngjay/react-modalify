@@ -99,20 +99,21 @@ export default class ModalFactory {
 
     create(Component, options) {
         let transitionModal = this.createTransitionModal(mixDeep(this.options, options));
-
         let modalStack = this.modalStack;
 
         return (props) => new Promise((resolve) => {
+
+            let close = (returnValue) => {
+                if (modalStack.peek() === transitionModal) {
+                    modalStack.pop().then(() => {
+                        resolve(returnValue);
+                    });
+                }                
+            };
+
             render(<Component
                 {...props}       
-                close={(returnValue) => {
-                    if (modalStack.peek() === transitionModal) {
-                        modalStack.pop().then(() => {
-                            resolve(returnValue);
-                        });
-                    }
-                    
-                }}
+                close={close}
             />, transitionModal.getElement());
 
             if (modalStack.peek() !== transitionModal) {

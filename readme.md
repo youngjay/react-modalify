@@ -10,7 +10,7 @@ npm install react-modalify --save
 
 ## Usage
 
-Write your plain react component with a ```close``` prop that ```react-modalify``` pass in. Call it when you want close this modal.
+Write your plain react component with a ```close``` prop that ```react-modalify``` passed in. Call it when you want close this modal.
 
 ```xml
 class Notify extends Component {
@@ -100,13 +100,13 @@ receiveProps({
 
 ### Nested modals support
 
-```react-modalify``` manage a stack of modals. So you can call modal() in a modal.
+```react-modalify``` manage a stack of modals. So You can call modal() in another modal.
 
 ## Notify the component to update when modal() was called
 
 ```react-modalify``` will set component's ```props``` every time it was called.
 
-According to the [react life cycle](http://facebook.github.io/react/docs/component-specs.html), the proper phases you may put your code are ```componentDidMount``` (for the first time) and ```componentWillReceiveProps```(for the later times)
+According to the [react life cycle](http://facebook.github.io/react/docs/component-specs.html), the proper phases that you may put your code on are ```componentDidMount``` (for the first time) and ```componentWillReceiveProps```(for the later times)
 
 ## Thoughts for Modals in react
 

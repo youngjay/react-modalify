@@ -20230,19 +20230,21 @@
 	        key: 'create',
 	        value: function create(Component, options) {
 	            var transitionModal = this.createTransitionModal((0, _utils.mixDeep)(this.options, options));
-
 	            var modalStack = this.modalStack;
 
 	            return function (props) {
 	                return new Promise(function (resolve) {
-	                    (0, _reactDom.render)(_react2.default.createElement(Component, _extends({}, props, {
-	                        close: function close(returnValue) {
-	                            if (modalStack.peek() === transitionModal) {
-	                                modalStack.pop().then(function () {
-	                                    resolve(returnValue);
-	                                });
-	                            }
+
+	                    var close = function close(returnValue) {
+	                        if (modalStack.peek() === transitionModal) {
+	                            modalStack.pop().then(function () {
+	                                resolve(returnValue);
+	                            });
 	                        }
+	                    };
+
+	                    (0, _reactDom.render)(_react2.default.createElement(Component, _extends({}, props, {
+	                        close: close
 	                    })), transitionModal.getElement());
 
 	                    if (modalStack.peek() !== transitionModal) {
