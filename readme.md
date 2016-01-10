@@ -167,7 +167,7 @@ Sorry, Chinese version only.
 
 很多其它的react modal组件库，比如react-modal，react-portal。他们都是按照react的编程习惯。把modal组件也作为一个component放到使用的地方。这样会造成几个问题：
 
-1. 在没有用到modal的时候，这个组件也会被渲染。为了避免这个问题，开发者就使用了奇技淫巧，重写component的生命周期，使modal只有被open的时候才渲染，而且渲染在当前节点之外。
+1. 在没有用到modal的时候，这个组件也会被渲染。为了避免这个问题，有些开发者重写component的生命周期，使modal只有被open的时候才渲染，而且渲染在当前节点之外。
 1. 调用者要关心modal的位置。在列表中用到modal的话，则它会被重复渲染很多遍。
 1. modal的打开状态到底是由调用者控制，还是由modal自己控制？这个关系到这个状态是用props还是用state。很显然modal不能自己打开自己，所以一定是调用者用props传入。但是大部分modal的关闭都不是调用者控制的，所以又得在dialog里面写state。导致这个状态相当的混乱。
 1. 值的传递。大部分modal是需要返回结果给调用者的，使用component生成的组件传递返回值相当的麻烦，相当于子组件要修改父组件的值。

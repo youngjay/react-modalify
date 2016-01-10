@@ -7,7 +7,7 @@
     "prepublish": "gulp build"
   },
   "keywords": ["react", "modal"],
-  "author": "",
+  "author": "hiyoungjay@gmail.com",
   "license": "ISC",
   "dependencies": {},
   "peerDependencies": {
