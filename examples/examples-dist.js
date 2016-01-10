@@ -360,18 +360,18 @@
 	    notify: (0, _index.modalify)(Notify),
 	    withCloseIcon: (0, _index.modalify)(WithCloseIcon),
 	    receiveProps: (0, _index.modalify)(ReceiveProps),
-	    customizeAlert: (0, _index.modalify)(Notify, {
+	    customizeNotify: (0, _index.modalify)(Notify, {
 	        modalStyles: {
 	            width: '300px',
-	            backgroundColor: '#00bcd4'
+	            backgroundColor: '#ffeb38'
 	        },
 
 	        modalTransitionShowStyles: {
-	            transform: 'translate(0, 0)'
+	            transform: 'scale(1)'
 	        },
 
 	        modalTransitionHideStyles: {
-	            transform: 'translate(0, -40px)'
+	            transform: 'scale(0.5)'
 	        }
 	    }),
 	    confirm: (0, _index.modalify)(Confirm),
@@ -436,9 +436,9 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                modals.customizeAlert();
+	                                modals.customizeNotify();
 	                            } },
-	                        'customizeAlert'
+	                        'customizeNotify'
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -20082,7 +20082,7 @@
 	});
 	exports.modalify = exports.ModalFactory = undefined;
 
-	var _ModalFactory = __webpack_require__(165);
+	var _ModalFactory = __webpack_require__(160);
 
 	var _ModalFactory2 = _interopRequireDefault(_ModalFactory);
 
@@ -20102,132 +20102,6 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _utils = __webpack_require__(161);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/*
-
-	options:
-
-	    element: dom element
-	    styles.show: styles applied when open
-	    styles.hide: styles applied when close
-	    duration: animation duration (millisecond)
-
-	  */
-
-	var Transition = function () {
-	    function Transition(options) {
-	        var _this = this;
-
-	        _classCallCheck(this, Transition);
-
-	        Object.assign(this, options);
-	        this.element.addEventListener('transitionend', function (e) {
-	            e.stopPropagation();
-	            _this.checkTransitionEnd();
-	        });
-	    }
-
-	    _createClass(Transition, [{
-	        key: 'checkTransitionEnd',
-	        value: function checkTransitionEnd() {
-	            if (this.inTransition) {
-	                this.inTransition = false;
-	                this.onTransitionEnd();
-	            }
-	        }
-	    }, {
-	        key: 'open',
-	        value: function open() {
-	            var _this2 = this;
-
-	            return new Promise(function (resolve) {
-	                (0, _utils.setStyle)(_this2.element, {
-	                    display: 'block'
-	                });
-	                setTimeout(function () {
-	                    _this2.setTransitionStyles(_this2.styles.show, resolve);
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'close',
-	        value: function close() {
-	            var _this3 = this;
-
-	            return new Promise(function (resolve) {
-	                _this3.setTransitionStyles(_this3.styles.hide, function () {
-	                    (0, _utils.setStyle)(_this3.element, {
-	                        display: 'none'
-	                    });
-	                    resolve();
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'setTransitionStyles',
-	        value: function setTransitionStyles(styles, callback) {
-	            var _this4 = this;
-
-	            this.onTransitionEnd = callback;
-	            (0, _utils.setStyle)(this.element, styles);
-	            this.inTransition = true;
-
-	            // "transitionend" don't work sometimes.
-	            // additional check
-	            setTimeout(function () {
-	                _this4.checkTransitionEnd();
-	            }, this.duration + 100);
-	        }
-	    }]);
-
-	    return Transition;
-	}();
-
-	exports.default = Transition;
-
-/***/ },
-/* 161 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var setStyle = exports.setStyle = function setStyle(element, styles) {
-	    Object.assign(element.style, styles);
-	};
-
-	var mixDeep = exports.mixDeep = function mixDeep(a, b) {
-	    if (b === undefined) {
-	        return a;
-	    }
-	    if (a && b && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && (typeof b === 'undefined' ? 'undefined' : _typeof(b)) === 'object') {
-	        return Object.keys(a).concat(Object.keys(b)).reduce(function (ret, key) {
-	            ret[key] = mixDeep(a[key], b[key]);
-	            return ret;
-	        }, {});
-	    }
-	    return b;
-	};
-
-/***/ },
-/* 162 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -20236,227 +20110,19 @@
 	    value: true
 	});
 
-	var _utils = __webpack_require__(161);
-
-	var _Transition = __webpack_require__(160);
-
-	var _Transition2 = _interopRequireDefault(_Transition);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/*
-
-	styles: {
-	    base: {
-	    },
-	    show: {
-	        backgroundColor: 'rgba(1,1,1,0.6)'
-	    },
-	    hide: {
-	        backgroundColor: 'rgba(1,1,1,0)'
-	    }
-	},
-	duration: TRANSITION_DURATION,
-	container: document.body
-
-	 */
-
-	var TransitionElement = function () {
-	    function TransitionElement(options) {
-	        _classCallCheck(this, TransitionElement);
-
-	        Object.assign(this, options);
-	    }
-
-	    _createClass(TransitionElement, [{
-	        key: 'checkInit',
-	        value: function checkInit() {
-	            if (this.hasInited) {
-	                return;
-	            }
-	            this.hasInited = true;
-	            var element = document.createElement('div');
-	            (0, _utils.setStyle)(element, _extends({}, this.styles.base, this.styles.hide, {
-	                display: 'none'
-	            }));
-	            this.transition = new _Transition2.default({
-	                element: element,
-	                styles: {
-	                    show: this.styles.show,
-	                    hide: this.styles.hide
-	                },
-	                duration: this.duration
-	            });
-	            this.container.appendChild(element);
-	            this.element = element;
-	        }
-	    }, {
-	        key: 'open',
-	        value: function open() {
-	            this.checkInit();
-	            return this.transition.open();
-	        }
-	    }, {
-	        key: 'close',
-	        value: function close() {
-	            this.checkInit();
-	            return this.transition.close();
-	        }
-	    }, {
-	        key: 'getElement',
-	        value: function getElement() {
-	            this.checkInit();
-	            return this.element;
-	        }
-	    }]);
-
-	    return TransitionElement;
-	}();
-
-	exports.default = TransitionElement;
-
-/***/ },
-/* 163 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _utils = __webpack_require__(161);
-
-	var _TransitionElement2 = __webpack_require__(162);
-
-	var _TransitionElement3 = _interopRequireDefault(_TransitionElement2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TransitionOverlay = function (_TransitionElement) {
-	    _inherits(TransitionOverlay, _TransitionElement);
-
-	    function TransitionOverlay() {
-	        _classCallCheck(this, TransitionOverlay);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TransitionOverlay).apply(this, arguments));
-	    }
-
-	    _createClass(TransitionOverlay, [{
-	        key: 'open',
-	        value: function open() {
-	            this.containerOverflow = this.container.style.overflow;
-	            (0, _utils.setStyle)(this.container, {
-	                overflow: 'hidden'
-	            });
-	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'open', this).call(this);
-	        }
-	    }, {
-	        key: 'close',
-	        value: function close() {
-	            (0, _utils.setStyle)(this.container, {
-	                overflow: this.containerOverflow
-	            });
-	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'close', this).call(this);
-	        }
-	    }]);
-
-	    return TransitionOverlay;
-	}(_TransitionElement3.default);
-
-	exports.default = TransitionOverlay;
-
-/***/ },
-/* 164 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var TransitionStack = function () {
-	    function TransitionStack(bottomTransition) {
-	        _classCallCheck(this, TransitionStack);
-
-	        this.stack = [bottomTransition];
-	    }
-
-	    _createClass(TransitionStack, [{
-	        key: "push",
-	        value: function push(transition) {
-	            var _this = this;
-
-	            return this.peek().close().then(function () {
-	                _this.stack.push(transition);
-	                return transition.open();
-	            });
-	        }
-	    }, {
-	        key: "pop",
-	        value: function pop() {
-	            var _this2 = this;
-
-	            return this.stack.pop().close().then(function () {
-	                return _this2.peek().open();
-	            });
-	        }
-	    }, {
-	        key: "peek",
-	        value: function peek() {
-	            return this.stack[this.stack.length - 1];
-	        }
-	    }]);
-
-	    return TransitionStack;
-	}();
-
-	exports.default = TransitionStack;
-
-/***/ },
-/* 165 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _TransitionElement = __webpack_require__(162);
+	var _TransitionElement = __webpack_require__(161);
 
 	var _TransitionElement2 = _interopRequireDefault(_TransitionElement);
 
-	var _TransitionOverlay = __webpack_require__(163);
+	var _TransitionOverlay = __webpack_require__(164);
 
 	var _TransitionOverlay2 = _interopRequireDefault(_TransitionOverlay);
 
-	var _TransitionStack = __webpack_require__(164);
+	var _TransitionStack = __webpack_require__(165);
 
 	var _TransitionStack2 = _interopRequireDefault(_TransitionStack);
 
-	var _utils = __webpack_require__(161);
+	var _utils = __webpack_require__(162);
 
 	var _react = __webpack_require__(1);
 
@@ -20591,6 +20257,340 @@
 	}();
 
 	exports.default = ModalFactory;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _utils = __webpack_require__(162);
+
+	var _Transition = __webpack_require__(163);
+
+	var _Transition2 = _interopRequireDefault(_Transition);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/*
+
+	styles: {
+	    base: {
+	    },
+	    show: {
+	        backgroundColor: 'rgba(1,1,1,0.6)'
+	    },
+	    hide: {
+	        backgroundColor: 'rgba(1,1,1,0)'
+	    }
+	},
+	duration: TRANSITION_DURATION,
+	container: document.body
+
+	 */
+
+	var TransitionElement = function () {
+	    function TransitionElement(options) {
+	        _classCallCheck(this, TransitionElement);
+
+	        Object.assign(this, options);
+	    }
+
+	    _createClass(TransitionElement, [{
+	        key: 'checkInit',
+	        value: function checkInit() {
+	            if (this.hasInited) {
+	                return;
+	            }
+	            this.hasInited = true;
+	            var element = document.createElement('div');
+	            (0, _utils.setStyle)(element, _extends({}, this.styles.base, this.styles.hide, {
+	                display: 'none'
+	            }));
+	            this.transition = new _Transition2.default({
+	                element: element,
+	                styles: {
+	                    show: this.styles.show,
+	                    hide: this.styles.hide
+	                },
+	                duration: this.duration
+	            });
+	            this.container.appendChild(element);
+	            this.element = element;
+	        }
+	    }, {
+	        key: 'open',
+	        value: function open() {
+	            this.checkInit();
+	            return this.transition.open();
+	        }
+	    }, {
+	        key: 'close',
+	        value: function close() {
+	            this.checkInit();
+	            return this.transition.close();
+	        }
+	    }, {
+	        key: 'getElement',
+	        value: function getElement() {
+	            this.checkInit();
+	            return this.element;
+	        }
+	    }]);
+
+	    return TransitionElement;
+	}();
+
+	exports.default = TransitionElement;
+
+/***/ },
+/* 162 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var setStyle = exports.setStyle = function setStyle(element, styles) {
+	    Object.assign(element.style, styles);
+	};
+
+	var mixDeep = exports.mixDeep = function mixDeep(a, b) {
+	    if (b === undefined) {
+	        return a;
+	    }
+	    if (a && b && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && (typeof b === 'undefined' ? 'undefined' : _typeof(b)) === 'object') {
+	        return Object.keys(a).concat(Object.keys(b)).reduce(function (ret, key) {
+	            ret[key] = mixDeep(a[key], b[key]);
+	            return ret;
+	        }, {});
+	    }
+	    return b;
+	};
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _utils = __webpack_require__(162);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/*
+
+	options:
+
+	    element: dom element
+	    styles.show: styles applied when open
+	    styles.hide: styles applied when close
+	    duration: animation duration (millisecond)
+
+	  */
+
+	var Transition = function () {
+	    function Transition(options) {
+	        var _this = this;
+
+	        _classCallCheck(this, Transition);
+
+	        Object.assign(this, options);
+	        this.element.addEventListener('transitionend', function (e) {
+	            e.stopPropagation();
+	            _this.checkTransitionEnd();
+	        });
+	    }
+
+	    _createClass(Transition, [{
+	        key: 'checkTransitionEnd',
+	        value: function checkTransitionEnd() {
+	            if (this.inTransition) {
+	                this.inTransition = false;
+	                this.onTransitionEnd();
+	            }
+	        }
+	    }, {
+	        key: 'open',
+	        value: function open() {
+	            var _this2 = this;
+
+	            return new Promise(function (resolve) {
+	                (0, _utils.setStyle)(_this2.element, {
+	                    display: 'block'
+	                });
+	                setTimeout(function () {
+	                    _this2.setTransitionStyles(_this2.styles.show, resolve);
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'close',
+	        value: function close() {
+	            var _this3 = this;
+
+	            return new Promise(function (resolve) {
+	                _this3.setTransitionStyles(_this3.styles.hide, function () {
+	                    (0, _utils.setStyle)(_this3.element, {
+	                        display: 'none'
+	                    });
+	                    resolve();
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'setTransitionStyles',
+	        value: function setTransitionStyles(styles, callback) {
+	            var _this4 = this;
+
+	            this.onTransitionEnd = callback;
+	            (0, _utils.setStyle)(this.element, styles);
+	            this.inTransition = true;
+
+	            // "transitionend" don't work sometimes.
+	            // additional check
+	            setTimeout(function () {
+	                _this4.checkTransitionEnd();
+	            }, this.duration + 100);
+	        }
+	    }]);
+
+	    return Transition;
+	}();
+
+	exports.default = Transition;
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _utils = __webpack_require__(162);
+
+	var _TransitionElement2 = __webpack_require__(161);
+
+	var _TransitionElement3 = _interopRequireDefault(_TransitionElement2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TransitionOverlay = function (_TransitionElement) {
+	    _inherits(TransitionOverlay, _TransitionElement);
+
+	    function TransitionOverlay() {
+	        _classCallCheck(this, TransitionOverlay);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TransitionOverlay).apply(this, arguments));
+	    }
+
+	    _createClass(TransitionOverlay, [{
+	        key: 'open',
+	        value: function open() {
+	            this.containerOverflow = this.container.style.overflow;
+	            (0, _utils.setStyle)(this.container, {
+	                overflow: 'hidden'
+	            });
+	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'open', this).call(this);
+	        }
+	    }, {
+	        key: 'close',
+	        value: function close() {
+	            (0, _utils.setStyle)(this.container, {
+	                overflow: this.containerOverflow
+	            });
+	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'close', this).call(this);
+	        }
+	    }]);
+
+	    return TransitionOverlay;
+	}(_TransitionElement3.default);
+
+	exports.default = TransitionOverlay;
+
+/***/ },
+/* 165 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var TransitionStack = function () {
+	    function TransitionStack(bottomTransition) {
+	        _classCallCheck(this, TransitionStack);
+
+	        this.stack = [bottomTransition];
+	    }
+
+	    _createClass(TransitionStack, [{
+	        key: "push",
+	        value: function push(transition) {
+	            var _this = this;
+
+	            return this.peek().close().then(function () {
+	                _this.stack.push(transition);
+	                return transition.open();
+	            });
+	        }
+	    }, {
+	        key: "pop",
+	        value: function pop() {
+	            var _this2 = this;
+
+	            return this.stack.pop().close().then(function () {
+	                return _this2.peek().open();
+	            });
+	        }
+	    }, {
+	        key: "peek",
+	        value: function peek() {
+	            return this.stack[this.stack.length - 1];
+	        }
+	    }]);
+
+	    return TransitionStack;
+	}();
+
+	exports.default = TransitionStack;
 
 /***/ }
 /******/ ]);

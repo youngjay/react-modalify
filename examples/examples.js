@@ -122,18 +122,18 @@ let modals = {
     notify: modalify(Notify),
     withCloseIcon: modalify(WithCloseIcon),
     receiveProps: modalify(ReceiveProps),
-    customizeAlert: modalify(Notify, {
+    customizeNotify: modalify(Notify, {
         modalStyles: {
             width: '300px',
-            backgroundColor: '#00bcd4'          
+            backgroundColor: '#ffeb38'          
         },
 
         modalTransitionShowStyles: {
-            transform: 'translate(0, 0)',
+            transform: 'scale(1)',
         },
 
         modalTransitionHideStyles: {
-            transform: 'translate(0, -40px)',
+            transform: 'scale(0.5)',
         }
     }),
     confirm: modalify(Confirm),
@@ -165,8 +165,8 @@ class Examples extends Component {
                 </li>
                 <li>                    
                     <button onClick={() => {
-                        modals.customizeAlert();
-                    }}>customizeAlert</button>
+                        modals.customizeNotify();
+                    }}>customizeNotify</button>
                 </li>
                 <li>                    
                     <button onClick={() => {
