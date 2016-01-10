@@ -356,6 +356,12 @@
 	    return NestedC;
 	}(_react.Component);
 
+	var modalFactory = new _index.ModalFactory({
+	    overlayTransitionShowStyles: {
+	        backgroundColor: 'rgba(96,125,139,0.5)'
+	    }
+	});
+
 	var modals = {
 	    notify: (0, _index.modalify)(Notify),
 	    withCloseIcon: (0, _index.modalify)(WithCloseIcon),
@@ -374,6 +380,7 @@
 	            transform: 'translate(0,-40px)'
 	        }
 	    }),
+	    customizeOverlay: modalFactory.create(Notify),
 	    confirm: (0, _index.modalify)(Confirm),
 	    nestedA: (0, _index.modalify)(NestedA),
 	    nestedB: (0, _index.modalify)(NestedB),
@@ -439,6 +446,17 @@
 	                                modals.customizeNotify();
 	                            } },
 	                        'customizeNotify'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: function onClick() {
+	                                modals.customizeOverlay();
+	                            } },
+	                        'customizeOverlay'
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -20140,11 +20158,11 @@
 	    overlayTransitionDuration: 200,
 
 	    overlayTransitionShowStyles: {
-	        backgroundColor: 'rgba(1,1,1,0.5)'
+	        backgroundColor: 'rgba(0,0,0,0.5)'
 	    },
 
 	    overlayTransitionHideStyles: {
-	        backgroundColor: 'rgba(1,1,1,0)'
+	        backgroundColor: 'rgba(0,0,0,0)'
 	    },
 
 	    overlayStyles: {
@@ -20171,7 +20189,7 @@
 	    },
 
 	    modalStyles: {
-	        width: '600px',
+	        width: '60%',
 	        backgroundColor: 'white',
 	        borderRadius: '5px',
 	        margin: '3.5rem auto'

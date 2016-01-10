@@ -102,6 +102,54 @@ receiveProps({
 
 ```react-modalify``` manage a stack of modals. So You can call modal() in another modal.
 
+## API
+
+### new ModalFactory(options: Object): ModalFactory
+
+create a ModalFactory with [options](https://github.com/youngjay/react-modalify/blob/master/src/ModalFactory.js#L10-L52)
+
+```js
+let modalFactory = new ModalFactory({
+    overlayTransitionShowStyles: {
+        backgroundColor: 'rgba(96,125,139,0.5)'        
+    }
+});
+```
+
+### modalFactory.create(options: Object): Modal
+
+create a modal with [options](https://github.com/youngjay/react-modalify/blob/master/src/ModalFactory.js#L10-L52).
+
+This options will override options in ModalFactory for current modal.
+
+```js
+let notify = modalFactory.create(Notify)
+```
+
+### modalify(options: Object): Modal
+
+Shortcut for:
+
+```js
+const defaultModalFactory = new ModalFactory();
+
+export const modalify = (Component, modalStyles) => {
+    return defaultModalFactory.create(Component, modalStyles);
+};
+```
+
+### modal(props: Object): Promise
+
+Open a modal with props, and return a Promise.
+
+```js
+notify({
+	user: 'Tom'
+}).then((returnValue) => {
+	console.log(returnValue);
+})
+```
+
 ## Notify the component to update when modal() was called
 
 ```react-modalify``` will set component's ```props``` every time it was called.

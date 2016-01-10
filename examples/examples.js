@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
-import {modalify} from '../src/index'
+import {modalify, ModalFactory} from '../src/index'
 
 class Notify extends Component {
     render() {
@@ -102,7 +102,6 @@ class NestedB extends Component {
     }
 }
 
-
 class NestedC extends Component {
     render() {
         return (
@@ -117,6 +116,12 @@ class NestedC extends Component {
         )
     }
 }
+
+let modalFactory = new ModalFactory({
+    overlayTransitionShowStyles: {
+        backgroundColor: 'rgba(96,125,139,0.5)'        
+    }
+});
 
 let modals = {
     notify: modalify(Notify),
@@ -136,6 +141,7 @@ let modals = {
             transform: 'translate(0,-40px)',
         }
     }),
+    customizeOverlay: modalFactory.create(Notify),
     confirm: modalify(Confirm),
     nestedA: modalify(NestedA),
     nestedB: modalify(NestedB),
@@ -167,6 +173,11 @@ class Examples extends Component {
                     <button onClick={() => {
                         modals.customizeNotify();
                     }}>customizeNotify</button>
+                </li>
+                <li>                    
+                    <button onClick={() => {
+                        modals.customizeOverlay();
+                    }}>customizeOverlay</button>
                 </li>
                 <li>                    
                     <button onClick={() => {
