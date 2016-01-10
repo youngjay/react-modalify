@@ -32,9 +32,10 @@ export default class Transition {
             setStyle(this.element, {
                 display: 'block'
             });
+            // ensure display:block has been set
             setTimeout(() => {
                 this.setTransitionStyles(this.styles.show, resolve);
-            })
+            }, 16);
         })
     }
 

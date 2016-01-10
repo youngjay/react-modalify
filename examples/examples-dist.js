@@ -20438,9 +20438,10 @@
 	                (0, _utils.setStyle)(_this2.element, {
 	                    display: 'block'
 	                });
+	                // ensure display:block has been set
 	                setTimeout(function () {
 	                    _this2.setTransitionStyles(_this2.styles.show, resolve);
-	                });
+	                }, 16);
 	            });
 	        }
 	    }, {
