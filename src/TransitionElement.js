@@ -1,23 +1,6 @@
 import {setStyle} from './utils'
 import Transition from './Transition'
 
-/*
-
-styles: {
-    base: {
-    },
-    show: {
-        backgroundColor: 'rgba(1,1,1,0.6)'
-    },
-    hide: {
-        backgroundColor: 'rgba(1,1,1,0)'
-    }
-},
-duration: TRANSITION_DURATION,
-container: document.body
-
- */
-
 export default class TransitionElement {
     constructor(options) {
         Object.assign(this, options)

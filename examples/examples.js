@@ -129,11 +129,11 @@ let modals = {
         },
 
         modalTransitionShowStyles: {
-            transform: 'scale(1)',
+            transform: 'translate(0,0)',
         },
 
         modalTransitionHideStyles: {
-            transform: 'scale(0.5)',
+            transform: 'translate(0,-40px)',
         }
     }),
     confirm: modalify(Confirm),

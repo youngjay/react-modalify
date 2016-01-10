@@ -1,12 +1,12 @@
 {
   "name": "react-modalify",
-  "version": "1.0.5",
-  "description": "",
+  "version": "1.0.6",
+  "description": "Transform your plain react component into a Promise",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "gulp build"
   },
-  "keywords": [],
+  "keywords": ["react", "modal"],
   "author": "",
   "license": "ISC",
   "dependencies": {},

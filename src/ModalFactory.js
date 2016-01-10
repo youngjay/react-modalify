@@ -10,10 +10,10 @@ import {render} from 'react-dom'
 const defaultOptions = {
     /// overlay options ///    
 
-    overlayTransitionDuration: 300,
+    overlayTransitionDuration: 200,
 
     overlayTransitionShowStyles: {
-        backgroundColor: 'rgba(1,1,1,0.6)'        
+        backgroundColor: 'rgba(1,1,1,0.5)'        
     },
 
     overlayTransitionHideStyles: {
@@ -31,15 +31,15 @@ const defaultOptions = {
 
     /// modal options ///
     
-    modalTransitionDuration: 300,
+    modalTransitionDuration: 200,
 
     modalTransitionShowStyles: {
-        transform: 'translate(0, 0)',
+        transform: 'scale(1)',
         opacity: 1
     },
 
     modalTransitionHideStyles: {
-        transform: 'translate(0, -3.5rem)',
+        transform: 'scale(0.7)',
         opacity: 0      
     },
 

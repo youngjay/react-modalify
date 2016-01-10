@@ -367,11 +367,11 @@
 	        },
 
 	        modalTransitionShowStyles: {
-	            transform: 'scale(1)'
+	            transform: 'translate(0,0)'
 	        },
 
 	        modalTransitionHideStyles: {
-	            transform: 'scale(0.5)'
+	            transform: 'translate(0,-40px)'
 	        }
 	    }),
 	    confirm: (0, _index.modalify)(Confirm),
@@ -20137,10 +20137,10 @@
 	var defaultOptions = {
 	    /// overlay options ///   
 
-	    overlayTransitionDuration: 300,
+	    overlayTransitionDuration: 200,
 
 	    overlayTransitionShowStyles: {
-	        backgroundColor: 'rgba(1,1,1,0.6)'
+	        backgroundColor: 'rgba(1,1,1,0.5)'
 	    },
 
 	    overlayTransitionHideStyles: {
@@ -20158,15 +20158,15 @@
 
 	    /// modal options ///
 
-	    modalTransitionDuration: 300,
+	    modalTransitionDuration: 200,
 
 	    modalTransitionShowStyles: {
-	        transform: 'translate(0, 0)',
+	        transform: 'scale(1)',
 	        opacity: 1
 	    },
 
 	    modalTransitionHideStyles: {
-	        transform: 'translate(0, -3.5rem)',
+	        transform: 'scale(0.7)',
 	        opacity: 0
 	    },
 
@@ -20283,23 +20283,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/*
-
-	styles: {
-	    base: {
-	    },
-	    show: {
-	        backgroundColor: 'rgba(1,1,1,0.6)'
-	    },
-	    hide: {
-	        backgroundColor: 'rgba(1,1,1,0)'
-	    }
-	},
-	duration: TRANSITION_DURATION,
-	container: document.body
-
-	 */
 
 	var TransitionElement = function () {
 	    function TransitionElement(options) {
