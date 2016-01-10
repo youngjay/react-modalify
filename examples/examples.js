@@ -35,6 +35,22 @@ class WithCloseIcon extends Component {
     }
 }
 
+class LongNotify extends Component {
+    render() {
+        return (
+            <div className="panel">
+                <h1>Hello, Modalify!</h1>
+                <div style={{height: 1500}}>
+                    very long content
+                </div>
+                <div>
+                    <button onClick={this.props.close}>OK</button>
+                </div>
+            </div>
+        )
+    }
+}
+
 class ReceiveProps extends Component {
     render() {
         return (
@@ -126,6 +142,7 @@ let modalFactory = new ModalFactory({
 let modals = {
     notify: modalify(Notify),
     withCloseIcon: modalify(WithCloseIcon),
+    longNotify: modalify(LongNotify),
     receiveProps: modalify(ReceiveProps),
     customizeNotify: modalify(Notify, {
         modalStyles: {
@@ -161,6 +178,11 @@ class Examples extends Component {
                     <button onClick={() => {
                         modals.withCloseIcon();
                     }}>withCloseIcon</button>
+                </li>
+                <li>                    
+                    <button onClick={() => {
+                        modals.longNotify();
+                    }}>longNotify</button>
                 </li>
                 <li>                    
                     <button onClick={() => {

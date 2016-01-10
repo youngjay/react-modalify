@@ -139,8 +139,49 @@
 	    return WithCloseIcon;
 	}(_react.Component);
 
-	var ReceiveProps = function (_Component3) {
-	    _inherits(ReceiveProps, _Component3);
+	var LongNotify = function (_Component3) {
+	    _inherits(LongNotify, _Component3);
+
+	    function LongNotify() {
+	        _classCallCheck(this, LongNotify);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(LongNotify).apply(this, arguments));
+	    }
+
+	    _createClass(LongNotify, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'panel' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Hello, Modalify!'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { height: 1500 } },
+	                    'very long content'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: this.props.close },
+	                        'OK'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return LongNotify;
+	}(_react.Component);
+
+	var ReceiveProps = function (_Component4) {
+	    _inherits(ReceiveProps, _Component4);
 
 	    function ReceiveProps() {
 	        _classCallCheck(this, ReceiveProps);
@@ -175,8 +216,8 @@
 	    return ReceiveProps;
 	}(_react.Component);
 
-	var Confirm = function (_Component4) {
-	    _inherits(Confirm, _Component4);
+	var Confirm = function (_Component5) {
+	    _inherits(Confirm, _Component5);
 
 	    function Confirm() {
 	        _classCallCheck(this, Confirm);
@@ -187,7 +228,7 @@
 	    _createClass(Confirm, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -203,14 +244,14 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this5.props.close('Yes');
+	                                _this6.props.close('Yes');
 	                            } },
 	                        'Yes'
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this5.props.close('No');
+	                                _this6.props.close('No');
 	                            } },
 	                        'No'
 	                    )
@@ -222,8 +263,8 @@
 	    return Confirm;
 	}(_react.Component);
 
-	var NestedA = function (_Component5) {
-	    _inherits(NestedA, _Component5);
+	var NestedA = function (_Component6) {
+	    _inherits(NestedA, _Component6);
 
 	    function NestedA() {
 	        _classCallCheck(this, NestedA);
@@ -234,7 +275,7 @@
 	    _createClass(NestedA, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this7 = this;
+	            var _this8 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -257,7 +298,7 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this7.props.close();
+	                                _this8.props.close();
 	                            } },
 	                        'back'
 	                    )
@@ -269,8 +310,8 @@
 	    return NestedA;
 	}(_react.Component);
 
-	var NestedB = function (_Component6) {
-	    _inherits(NestedB, _Component6);
+	var NestedB = function (_Component7) {
+	    _inherits(NestedB, _Component7);
 
 	    function NestedB() {
 	        _classCallCheck(this, NestedB);
@@ -281,7 +322,7 @@
 	    _createClass(NestedB, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this9 = this;
+	            var _this10 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -304,7 +345,7 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this9.props.close();
+	                                _this10.props.close();
 	                            } },
 	                        'back'
 	                    )
@@ -316,8 +357,8 @@
 	    return NestedB;
 	}(_react.Component);
 
-	var NestedC = function (_Component7) {
-	    _inherits(NestedC, _Component7);
+	var NestedC = function (_Component8) {
+	    _inherits(NestedC, _Component8);
 
 	    function NestedC() {
 	        _classCallCheck(this, NestedC);
@@ -328,7 +369,7 @@
 	    _createClass(NestedC, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this11 = this;
+	            var _this12 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -344,7 +385,7 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { onClick: function onClick() {
-	                                _this11.props.close();
+	                                _this12.props.close();
 	                            } },
 	                        'back'
 	                    )
@@ -365,6 +406,7 @@
 	var modals = {
 	    notify: (0, _index.modalify)(Notify),
 	    withCloseIcon: (0, _index.modalify)(WithCloseIcon),
+	    longNotify: (0, _index.modalify)(LongNotify),
 	    receiveProps: (0, _index.modalify)(ReceiveProps),
 	    customizeNotify: (0, _index.modalify)(Notify, {
 	        modalStyles: {
@@ -387,8 +429,8 @@
 	    nestedC: (0, _index.modalify)(NestedC)
 	};
 
-	var Examples = function (_Component8) {
-	    _inherits(Examples, _Component8);
+	var Examples = function (_Component9) {
+	    _inherits(Examples, _Component9);
 
 	    function Examples() {
 	        _classCallCheck(this, Examples);
@@ -422,6 +464,17 @@
 	                                modals.withCloseIcon();
 	                            } },
 	                        'withCloseIcon'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: function onClick() {
+	                                modals.longNotify();
+	                            } },
+	                        'longNotify'
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -20171,7 +20224,8 @@
 	        top: 0,
 	        width: '100%',
 	        height: '100%',
-	        zIndex: 1000
+	        zIndex: 1000,
+	        overflow: 'auto'
 	    },
 
 	    /// modal options ///
