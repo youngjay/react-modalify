@@ -104,9 +104,9 @@ receiveProps({
 
 ## API
 
-### new ModalFactory(options: Object): ModalFactory
+### new ModalFactory(options[optional]: Object): ModalFactory
 
-create a ModalFactory with [options](https://github.com/youngjay/react-modalify/blob/master/src/ModalFactory.js#L10-L52)
+create a ModalFactory with [options](https://github.com/youngjay/react-modalify/blob/master/src/ModalFactory.js#L10-L53)
 
 ```js
 let modalFactory = new ModalFactory({
@@ -116,14 +116,19 @@ let modalFactory = new ModalFactory({
 });
 ```
 
-### modalFactory.create(options: Object): Modal
+### modalFactory.create(component: ReactComponent, options[optional]: Object): Modal
 
-create a modal with [options](https://github.com/youngjay/react-modalify/blob/master/src/ModalFactory.js#L10-L52).
+create a modal with a ReactComponent and [options](https://github.com/youngjay/react-modalify/blob/master/src/ModalFactory.js#L10-L53).
 
-This options will override options in ModalFactory for current modal.
+This options(if provided) will override the options in ModalFactory for current modal.
 
 ```js
-let notify = modalFactory.create(Notify)
+let notify = modalFactory.create(Notify, {
+    modalStyles: {	
+        width: '300px',
+        backgroundColor: '#ffeb38'   
+	}
+})
 ```
 
 ### modalify(options: Object): Modal
