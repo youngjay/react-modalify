@@ -159,7 +159,7 @@ notify({
 
 ```react-modalify``` will set component's ```props``` every time it was called.
 
-According to the [react life cycle](http://facebook.github.io/react/docs/component-specs.html), the proper phases that you may put your code on are ```componentDidMount``` (for the first time) and ```componentWillReceiveProps```(for the later times)
+According to the [react lifecycle](http://facebook.github.io/react/docs/component-specs.html), the proper phases that you may put your code on are ```componentDidMount``` (for the first time) and ```componentWillReceiveProps```(for the later times)
 
 ## Thoughts for Modals in react
 
