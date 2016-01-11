@@ -163,8 +163,6 @@ According to the [react life cycle](http://facebook.github.io/react/docs/compone
 
 ## Thoughts for Modals in react
 
-Sorry, Chinese version only.
-
 很多其它的react modal组件库，比如react-modal，react-portal。他们都是按照react的编程习惯。把modal组件也作为一个component放到使用的地方。这样会造成几个问题：
 
 1. 在没有用到modal的时候，这个组件也会被渲染。为了避免这个问题，有些开发者重写component的生命周期，使modal只有被open的时候才渲染，而且渲染在当前节点之外。
