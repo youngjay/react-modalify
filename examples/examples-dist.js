@@ -20148,8 +20148,10 @@
 
 	'use strict';
 
+	var _context;
+
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.modalify = exports.ModalFactory = undefined;
 
@@ -20160,12 +20162,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.ModalFactory = _ModalFactory2.default;
-
-	var defaultModalFactory = new _ModalFactory2.default();
-
-	var modalify = exports.modalify = function modalify(Component, modalStyles) {
-	    return defaultModalFactory.create(Component, modalStyles);
-	};
+	var modalify = exports.modalify = (_context = new _ModalFactory2.default()).create.bind(_context);
 
 /***/ },
 /* 160 */

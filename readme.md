@@ -136,11 +136,7 @@ let notify = modalFactory.create(Notify, {
 Shortcut for:
 
 ```js
-const defaultModalFactory = new ModalFactory();
-
-export const modalify = (Component, modalStyles) => {
-    return defaultModalFactory.create(Component, modalStyles);
-};
+export const modalify = ::(new ModalFactory()).create;
 ```
 
 ### modal(props: Object): Promise

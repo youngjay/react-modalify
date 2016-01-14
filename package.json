@@ -1,6 +1,6 @@
 {
   "name": "react-modalify",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Transform your plain react component into a Promise",
   "main": "lib/index.js",
   "scripts": {
