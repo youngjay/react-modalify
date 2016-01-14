@@ -1,6 +1,6 @@
 {
   "name": "react-modalify",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Transform your plain react component into a Promise",
   "main": "lib/index.js",
   "scripts": {
@@ -10,6 +10,12 @@
   "author": "hiyoungjay@gmail.com",
   "license": "ISC",
   "dependencies": {},
+  "homepage": "https://github.com/youngjay/react-modalify",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youngjay/react-modalify.git"
+  },
+  "bugs": "https://github.com/youngjay/react-modalify/issues",
   "peerDependencies": {
     "react": "~0.14.6",
     "react-dom": "~0.14.6"
