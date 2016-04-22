@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var webpack = require('webpack');
 var babel = require('gulp-babel')
 
 gulp.task('build', function(done){
