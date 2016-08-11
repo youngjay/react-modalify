@@ -34,9 +34,29 @@ export default class TransitionElement {
         return this.transition.open();
     }
 
+    openNoAnimation() {
+        this.checkInit();
+        setStyle(this.element, {
+            display: ''
+        });
+        return new Promise(function(resolve) {
+            resolve();
+        })
+    }
+
     close() {
         this.checkInit();
         return this.transition.close();
+    }
+
+    closeNoAnimation() {
+        this.checkInit();
+        setStyle(this.element, {
+            display: 'none'
+        });
+        return new Promise(function(resolve) {
+            resolve();
+        })
     }
 
     getElement() {

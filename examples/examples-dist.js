@@ -279,7 +279,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel' },
+	                { className: 'panel', style: { width: 500, height: 300 } },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -326,7 +326,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel' },
+	                { className: 'panel', style: { width: 400, height: 200 } },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -373,7 +373,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel' },
+	                { className: 'panel', style: { width: 200, height: 100 } },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -20182,15 +20182,15 @@
 
 	var _TransitionElement2 = _interopRequireDefault(_TransitionElement);
 
-	var _TransitionOverlay = __webpack_require__(164);
+	var _TransitionOverlay = __webpack_require__(162);
 
 	var _TransitionOverlay2 = _interopRequireDefault(_TransitionOverlay);
 
-	var _TransitionStack = __webpack_require__(165);
+	var _TransitionStack = __webpack_require__(164);
 
 	var _TransitionStack2 = _interopRequireDefault(_TransitionStack);
 
-	var _utils = __webpack_require__(162);
+	var _utils = __webpack_require__(163);
 
 	var _react = __webpack_require__(1);
 
@@ -20343,9 +20343,9 @@
 	    value: true
 	});
 
-	var _utils = __webpack_require__(162);
+	var _utils = __webpack_require__(163);
 
-	var _Transition = __webpack_require__(163);
+	var _Transition = __webpack_require__(165);
 
 	var _Transition2 = _interopRequireDefault(_Transition);
 
@@ -20389,10 +20389,32 @@
 	            return this.transition.open();
 	        }
 	    }, {
+	        key: 'openNoAnimation',
+	        value: function openNoAnimation() {
+	            this.checkInit();
+	            (0, _utils.setStyle)(this.element, {
+	                display: ''
+	            });
+	            return new Promise(function (resolve) {
+	                resolve();
+	            });
+	        }
+	    }, {
 	        key: 'close',
 	        value: function close() {
 	            this.checkInit();
 	            return this.transition.close();
+	        }
+	    }, {
+	        key: 'closeNoAnimation',
+	        value: function closeNoAnimation() {
+	            this.checkInit();
+	            (0, _utils.setStyle)(this.element, {
+	                display: 'none'
+	            });
+	            return new Promise(function (resolve) {
+	                resolve();
+	            });
 	        }
 	    }, {
 	        key: 'getElement',
@@ -20409,6 +20431,67 @@
 
 /***/ },
 /* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _utils = __webpack_require__(163);
+
+	var _TransitionElement2 = __webpack_require__(161);
+
+	var _TransitionElement3 = _interopRequireDefault(_TransitionElement2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TransitionOverlay = function (_TransitionElement) {
+	    _inherits(TransitionOverlay, _TransitionElement);
+
+	    function TransitionOverlay() {
+	        _classCallCheck(this, TransitionOverlay);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TransitionOverlay).apply(this, arguments));
+	    }
+
+	    _createClass(TransitionOverlay, [{
+	        key: 'open',
+	        value: function open() {
+	            this.containerOverflow = this.container.style.overflow;
+	            (0, _utils.setStyle)(this.container, {
+	                overflow: 'hidden'
+	            });
+	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'open', this).call(this);
+	        }
+	    }, {
+	        key: 'close',
+	        value: function close() {
+	            (0, _utils.setStyle)(this.container, {
+	                overflow: this.containerOverflow
+	            });
+	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'close', this).call(this);
+	        }
+	    }]);
+
+	    return TransitionOverlay;
+	}(_TransitionElement3.default);
+
+	exports.default = TransitionOverlay;
+
+/***/ },
+/* 163 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20436,7 +20519,59 @@
 	};
 
 /***/ },
-/* 163 */
+/* 164 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var TransitionStack = function () {
+	    function TransitionStack(bottomTransition) {
+	        _classCallCheck(this, TransitionStack);
+
+	        this.stack = [bottomTransition];
+	    }
+
+	    _createClass(TransitionStack, [{
+	        key: 'push',
+	        value: function push(transition) {
+	            var _this = this;
+
+	            return this.peek()[this.stack.length === 1 ? 'close' : 'closeNoAnimation']().then(function () {
+	                _this.stack.push(transition);
+	                return transition.open();
+	            });
+	        }
+	    }, {
+	        key: 'pop',
+	        value: function pop() {
+	            var _this2 = this;
+
+	            return this.stack.pop()[this.stack.length === 1 ? 'close' : 'closeNoAnimation']().then(function () {
+	                return _this2.peek().open();
+	            });
+	        }
+	    }, {
+	        key: 'peek',
+	        value: function peek() {
+	            return this.stack[this.stack.length - 1];
+	        }
+	    }]);
+
+	    return TransitionStack;
+	}();
+
+	exports.default = TransitionStack;
+
+/***/ },
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20447,7 +20582,7 @@
 	    value: true
 	});
 
-	var _utils = __webpack_require__(162);
+	var _utils = __webpack_require__(163);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -20533,119 +20668,6 @@
 	}();
 
 	exports.default = Transition;
-
-/***/ },
-/* 164 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _utils = __webpack_require__(162);
-
-	var _TransitionElement2 = __webpack_require__(161);
-
-	var _TransitionElement3 = _interopRequireDefault(_TransitionElement2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TransitionOverlay = function (_TransitionElement) {
-	    _inherits(TransitionOverlay, _TransitionElement);
-
-	    function TransitionOverlay() {
-	        _classCallCheck(this, TransitionOverlay);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TransitionOverlay).apply(this, arguments));
-	    }
-
-	    _createClass(TransitionOverlay, [{
-	        key: 'open',
-	        value: function open() {
-	            this.containerOverflow = this.container.style.overflow;
-	            (0, _utils.setStyle)(this.container, {
-	                overflow: 'hidden'
-	            });
-	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'open', this).call(this);
-	        }
-	    }, {
-	        key: 'close',
-	        value: function close() {
-	            (0, _utils.setStyle)(this.container, {
-	                overflow: this.containerOverflow
-	            });
-	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'close', this).call(this);
-	        }
-	    }]);
-
-	    return TransitionOverlay;
-	}(_TransitionElement3.default);
-
-	exports.default = TransitionOverlay;
-
-/***/ },
-/* 165 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var TransitionStack = function () {
-	    function TransitionStack(bottomTransition) {
-	        _classCallCheck(this, TransitionStack);
-
-	        this.stack = [bottomTransition];
-	    }
-
-	    _createClass(TransitionStack, [{
-	        key: "push",
-	        value: function push(transition) {
-	            var _this = this;
-
-	            return this.peek().close().then(function () {
-	                _this.stack.push(transition);
-	                return transition.open();
-	            });
-	        }
-	    }, {
-	        key: "pop",
-	        value: function pop() {
-	            var _this2 = this;
-
-	            return this.stack.pop().close().then(function () {
-	                return _this2.peek().open();
-	            });
-	        }
-	    }, {
-	        key: "peek",
-	        value: function peek() {
-	            return this.stack[this.stack.length - 1];
-	        }
-	    }]);
-
-	    return TransitionStack;
-	}();
-
-	exports.default = TransitionStack;
 
 /***/ }
 /******/ ]);

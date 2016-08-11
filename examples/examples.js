@@ -85,7 +85,7 @@ class Confirm extends Component {
 class NestedA extends Component {
     render() {
         return (
-            <div className="panel">
+            <div className="panel" style={{width: 500, height: 300}}>
                 <h1>This is NestedA</h1>
                 <div>
                     <button onClick={() => {
@@ -103,7 +103,7 @@ class NestedA extends Component {
 class NestedB extends Component {
     render() {
         return (
-            <div className="panel">
+            <div className="panel" style={{width: 400, height: 200}}>
                 <h1>This is NestedB</h1>
                 <div>
                     <button onClick={() => {
@@ -121,7 +121,7 @@ class NestedB extends Component {
 class NestedC extends Component {
     render() {
         return (
-            <div className="panel">
+            <div className="panel" style={{width: 200, height: 100}}>
                 <h1>This is NestedC</h1>
                 <div>
                     <button onClick={() => {
