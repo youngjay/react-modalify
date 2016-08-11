@@ -373,7 +373,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel', style: { width: 200, height: 100 } },
+	                { className: 'panel', style: { width: 300, height: 100 } },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -20384,37 +20384,15 @@
 	        }
 	    }, {
 	        key: 'open',
-	        value: function open() {
+	        value: function open(notUseAnimation) {
 	            this.checkInit();
-	            return this.transition.open();
-	        }
-	    }, {
-	        key: 'openNoAnimation',
-	        value: function openNoAnimation() {
-	            this.checkInit();
-	            (0, _utils.setStyle)(this.element, {
-	                display: ''
-	            });
-	            return new Promise(function (resolve) {
-	                resolve();
-	            });
+	            return this.transition.open(notUseAnimation);
 	        }
 	    }, {
 	        key: 'close',
-	        value: function close() {
+	        value: function close(notUseAnimation) {
 	            this.checkInit();
-	            return this.transition.close();
-	        }
-	    }, {
-	        key: 'closeNoAnimation',
-	        value: function closeNoAnimation() {
-	            this.checkInit();
-	            (0, _utils.setStyle)(this.element, {
-	                display: 'none'
-	            });
-	            return new Promise(function (resolve) {
-	                resolve();
-	            });
+	            return this.transition.close(notUseAnimation);
 	        }
 	    }, {
 	        key: 'getElement',
@@ -20522,7 +20500,7 @@
 /* 164 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20540,26 +20518,26 @@
 	    }
 
 	    _createClass(TransitionStack, [{
-	        key: 'push',
+	        key: "push",
 	        value: function push(transition) {
 	            var _this = this;
 
-	            return this.peek()[this.stack.length === 1 ? 'close' : 'closeNoAnimation']().then(function () {
+	            return this.peek().close(this.stack.length !== 1).then(function () {
 	                _this.stack.push(transition);
 	                return transition.open();
 	            });
 	        }
 	    }, {
-	        key: 'pop',
+	        key: "pop",
 	        value: function pop() {
 	            var _this2 = this;
 
-	            return this.stack.pop()[this.stack.length === 1 ? 'close' : 'closeNoAnimation']().then(function () {
-	                return _this2.peek().open();
+	            return this.stack.pop().close(this.stack.length !== 1).then(function () {
+	                return _this2.peek().open(_this2.stack.length !== 1);
 	            });
 	        }
 	    }, {
-	        key: 'peek',
+	        key: "peek",
 	        value: function peek() {
 	            return this.stack[this.stack.length - 1];
 	        }
@@ -20575,6 +20553,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20620,31 +20600,50 @@
 	        }
 	    }, {
 	        key: 'open',
-	        value: function open() {
+	        value: function open(notUseAnimation) {
 	            var _this2 = this;
 
 	            return new Promise(function (resolve) {
 	                (0, _utils.setStyle)(_this2.element, {
 	                    display: 'block'
 	                });
-	                // ensure display:block has been set
-	                setTimeout(function () {
-	                    _this2.setTransitionStyles(_this2.styles.show, resolve);
-	                }, 16);
+
+	                if (notUseAnimation) {
+	                    var transitionProp = _this2.element.style.transition;
+	                    delete _this2.element.style.transition;
+	                    (0, _utils.setStyle)(_this2.element, _this2.styles.show);
+	                    _this2.element.style.transition = transitionProp;
+	                    resolve();
+	                } else {
+	                    // ensure display:block has been set
+	                    setTimeout(function () {
+	                        _this2.setTransitionStyles(_this2.styles.show, resolve);
+	                    }, 16);
+	                }
 	            });
 	        }
 	    }, {
 	        key: 'close',
-	        value: function close() {
+	        value: function close(notUseAnimation) {
 	            var _this3 = this;
 
 	            return new Promise(function (resolve) {
-	                _this3.setTransitionStyles(_this3.styles.hide, function () {
-	                    (0, _utils.setStyle)(_this3.element, {
+	                if (notUseAnimation) {
+	                    var transitionProp = _this3.element.style.transition;
+	                    delete _this3.element.style.transition;
+	                    (0, _utils.setStyle)(_this3.element, _extends({}, _this3.styles.hide, {
 	                        display: 'none'
-	                    });
+	                    }));
+	                    _this3.element.style.transition = transitionProp;
 	                    resolve();
-	                });
+	                } else {
+	                    _this3.setTransitionStyles(_this3.styles.hide, function () {
+	                        (0, _utils.setStyle)(_this3.element, {
+	                            display: 'none'
+	                        });
+	                        resolve();
+	                    });
+	                }
 	            });
 	        }
 	    }, {

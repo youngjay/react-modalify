@@ -29,34 +29,14 @@ export default class TransitionElement {
         this.element = element;
     }
 
-    open() {
+    open(notUseAnimation) {
         this.checkInit();
-        return this.transition.open();
+        return this.transition.open(notUseAnimation);
     }
 
-    openNoAnimation() {
+    close(notUseAnimation) {
         this.checkInit();
-        setStyle(this.element, {
-            display: ''
-        });
-        return new Promise(function(resolve) {
-            resolve();
-        })
-    }
-
-    close() {
-        this.checkInit();
-        return this.transition.close();
-    }
-
-    closeNoAnimation() {
-        this.checkInit();
-        setStyle(this.element, {
-            display: 'none'
-        });
-        return new Promise(function(resolve) {
-            resolve();
-        })
+        return this.transition.close(notUseAnimation);
     }
 
     getElement() {

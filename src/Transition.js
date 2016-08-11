@@ -27,26 +27,46 @@ export default class Transition {
         }
     }
 
-    open() {
+    open(notUseAnimation) {
         return new Promise((resolve) => {
             setStyle(this.element, {
                 display: 'block'
             });
-            // ensure display:block has been set
-            setTimeout(() => {
-                this.setTransitionStyles(this.styles.show, resolve);
-            }, 16);
+
+            if (notUseAnimation) {
+                let transitionProp = this.element.style.transition;
+                delete this.element.style.transition;
+                setStyle(this.element, this.styles.show);
+                this.element.style.transition = transitionProp;
+                resolve();
+            } else {
+                // ensure display:block has been set
+                setTimeout(() => {
+                    this.setTransitionStyles(this.styles.show, resolve);
+                }, 16);
+            }            
         })
     }
 
-    close() {
-        return new Promise((resolve) => {    
-            this.setTransitionStyles(this.styles.hide, () => {
+    close(notUseAnimation) {
+        return new Promise((resolve) => {
+            if (notUseAnimation) {                
+                let transitionProp = this.element.style.transition;
+                delete this.element.style.transition;
                 setStyle(this.element, {
+                    ...this.styles.hide,
                     display: 'none'
                 });
+                this.element.style.transition = transitionProp;
                 resolve();
-            });
+            } else {
+                this.setTransitionStyles(this.styles.hide, () => {
+                    setStyle(this.element, {
+                        display: 'none'
+                    });
+                    resolve();
+                });
+            }            
         })
     }
 

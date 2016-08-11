@@ -121,7 +121,7 @@ class NestedB extends Component {
 class NestedC extends Component {
     render() {
         return (
-            <div className="panel" style={{width: 200, height: 100}}>
+            <div className="panel" style={{width: 300, height: 100}}>
                 <h1>This is NestedC</h1>
                 <div>
                     <button onClick={() => {

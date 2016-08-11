@@ -4,15 +4,15 @@ export default class TransitionStack {
     }
 
     push(transition) {
-        return this.peek()[this.stack.length === 1 ? 'close' : 'closeNoAnimation']().then(() => {
+        return this.peek().close(this.stack.length !== 1).then(() => {
             this.stack.push(transition);
             return transition.open();
         })
     }
 
     pop() {
-        return this.stack.pop()[this.stack.length === 1 ? 'close' : 'closeNoAnimation']().then(() => {
-            return this.peek().open(); 
+        return this.stack.pop().close(this.stack.length !== 1).then(() => {
+            return this.peek().open(this.stack.length !== 1); 
         });
     }
 
