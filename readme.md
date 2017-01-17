@@ -16,7 +16,7 @@ Write your plain react component with a ```close``` prop that ```react-modalify`
 class Notify extends Component {
     render() {
         return (
-            <div className="panel">
+            <div>
                 <h1>Hello, Modalify!</h1>
                 <div>
                     <button onClick={this.props.close}>OK</button>
@@ -51,7 +51,7 @@ notify()
 class Confirm extends Component {
     render() {
         return (
-            <div className="panel">
+            <div>
                 <h1>Hello, Modalify!</h1>
                 <div>
                     <button onClick={() => {
@@ -80,7 +80,7 @@ confirm().then((returnValue) => {
 class ReceiveProps extends Component {
     render() {
         return (
-            <div className="panel">
+            <div>
                 <h1>{`Hello, ${this.props.user}!`}</h1>
                 <div>
                     <button onClick={this.props.close}>OK</button>
@@ -104,7 +104,7 @@ receiveProps({
 
 ## API
 
-### new ModalFactory(options[optional]: Object): ModalFactory
+### new ModalFactory(options: Object<optional>): ModalFactory
 
 create a ModalFactory with [options](https://github.com/youngjay/react-modalify/blob/master/src/ModalFactory.js#L10-L53)
 
