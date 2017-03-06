@@ -1,6 +1,16 @@
+let resloveNow = new Promise((resolve) => {
+    resolve();
+});
+
+const emptyTransition = {
+    close: () => resloveNow,
+
+    open: () => resloveNow
+}
+
 export default class TransitionStack {
     constructor(bottomTransition) {
-        this.stack = [bottomTransition];
+        this.stack = [bottomTransition || emptyTransition];
     }
 
     push(transition) {

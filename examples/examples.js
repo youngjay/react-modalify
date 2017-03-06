@@ -85,7 +85,7 @@ class Confirm extends Component {
 class NestedA extends Component {
     render() {
         return (
-            <div className="panel" style={{width: 500, height: 300}}>
+            <div className="panel" >
                 <h1>This is NestedA</h1>
                 <div>
                     <button onClick={() => {
@@ -103,7 +103,7 @@ class NestedA extends Component {
 class NestedB extends Component {
     render() {
         return (
-            <div className="panel" style={{width: 400, height: 200}}>
+            <div className="panel" >
                 <h1>This is NestedB</h1>
                 <div>
                     <button onClick={() => {
@@ -121,7 +121,7 @@ class NestedB extends Component {
 class NestedC extends Component {
     render() {
         return (
-            <div className="panel" style={{width: 300, height: 100}}>
+            <div className="panel" >
                 <h1>This is NestedC</h1>
                 <div>
                     <button onClick={() => {
@@ -139,6 +139,29 @@ let modalFactory = new ModalFactory({
     }
 });
 
+let noOverlayModalFactory = new ModalFactory({
+    useOverlay: false,
+
+    modalTransitionShowStyles: {
+        opacity: 1
+    },
+
+    modalTransitionHideStyles: {
+        opacity: 0      
+    },
+
+    modalStyles: {
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '400px',
+        border: '1px solid #ccc',
+        margin: 'auto',
+        borderRadius: '5px'
+    }
+})
+
 let modals = {
     notify: modalify(Notify),
     withCloseIcon: modalify(WithCloseIcon),
@@ -147,7 +170,7 @@ let modals = {
     customizeNotify: modalify(Notify, {
         modalStyles: {
             width: '300px',
-            backgroundColor: '#ffeb38'          
+            border: '#ffeb38'          
         },
 
         modalTransitionShowStyles: {
@@ -159,6 +182,7 @@ let modals = {
         }
     }),
     customizeOverlay: modalFactory.create(Notify),
+    noOverlay: noOverlayModalFactory.create(Confirm),
     confirm: modalify(Confirm),
     nestedA: modalify(NestedA),
     nestedB: modalify(NestedB),
@@ -200,6 +224,11 @@ class Examples extends Component {
                     <button onClick={() => {
                         modals.customizeOverlay();
                     }}>customizeOverlay</button>
+                </li>
+                <li>                    
+                    <button onClick={() => {
+                        modals.noOverlay();
+                    }}>noOverlay</button>
                 </li>
                 <li>                    
                     <button onClick={() => {

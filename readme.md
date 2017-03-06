@@ -2,6 +2,12 @@
 
 Transform your plain react component into a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
+## change logs
+### 3.0.0
+- add "useOverlay" in options, default value is true, when set to false. Developer must override "modalStyles" in options to align the modal in the middle of screen
+- use "mix" instead of "mixDeep" to merge options to "defaultOptions"
+
+
 ## Install
 
 ```shell
@@ -149,6 +155,56 @@ notify({
 }).then((returnValue) => {
 	console.log(returnValue);
 })
+```
+
+## default styles
+
+```
+const defaultOptions = {
+    /// overlay options ///    
+
+    overlayTransitionDuration: 200,
+
+    overlayTransitionShowStyles: {
+        backgroundColor: 'rgba(0,0,0,0.5)'        
+    },
+
+    overlayTransitionHideStyles: {
+        backgroundColor: 'rgba(0,0,0,0)'        
+    },
+
+    overlayStyles: {
+        position: 'fixed',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1000,
+        overflow: 'auto'
+    },
+
+    /// modal options ///
+    
+    modalTransitionDuration: 200,
+
+    modalTransitionShowStyles: {
+        transform: 'scale(1)',
+        opacity: 1
+    },
+
+    modalTransitionHideStyles: {
+        transform: 'scale(0.7)',
+        opacity: 0      
+    },
+
+    modalStyles: {
+        width: '60%',
+        backgroundColor: 'white',
+        borderRadius: '5px',
+        margin: '3.5rem auto',
+    }
+};
+
 ```
 
 ## Notify the component to update when modal() was called

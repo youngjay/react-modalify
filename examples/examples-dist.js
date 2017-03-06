@@ -279,7 +279,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel', style: { width: 500, height: 300 } },
+	                { className: 'panel' },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -326,7 +326,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel', style: { width: 400, height: 200 } },
+	                { className: 'panel' },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -373,7 +373,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel', style: { width: 300, height: 100 } },
+	                { className: 'panel' },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -403,6 +403,29 @@
 	    }
 	});
 
+	var noOverlayModalFactory = new _index.ModalFactory({
+	    useOverlay: false,
+
+	    modalTransitionShowStyles: {
+	        opacity: 1
+	    },
+
+	    modalTransitionHideStyles: {
+	        opacity: 0
+	    },
+
+	    modalStyles: {
+	        position: 'fixed',
+	        top: '50%',
+	        left: '50%',
+	        transform: 'translate(-50%, -50%)',
+	        width: '400px',
+	        border: '1px solid #ccc',
+	        margin: 'auto',
+	        borderRadius: '5px'
+	    }
+	});
+
 	var modals = {
 	    notify: (0, _index.modalify)(Notify),
 	    withCloseIcon: (0, _index.modalify)(WithCloseIcon),
@@ -411,7 +434,7 @@
 	    customizeNotify: (0, _index.modalify)(Notify, {
 	        modalStyles: {
 	            width: '300px',
-	            backgroundColor: '#ffeb38'
+	            border: '#ffeb38'
 	        },
 
 	        modalTransitionShowStyles: {
@@ -423,6 +446,7 @@
 	        }
 	    }),
 	    customizeOverlay: modalFactory.create(Notify),
+	    noOverlay: noOverlayModalFactory.create(Confirm),
 	    confirm: (0, _index.modalify)(Confirm),
 	    nestedA: (0, _index.modalify)(NestedA),
 	    nestedB: (0, _index.modalify)(NestedB),
@@ -510,6 +534,17 @@
 	                                modals.customizeOverlay();
 	                            } },
 	                        'customizeOverlay'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: function onClick() {
+	                                modals.noOverlay();
+	                            } },
+	                        'noOverlay'
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -20182,15 +20217,15 @@
 
 	var _TransitionElement2 = _interopRequireDefault(_TransitionElement);
 
-	var _TransitionOverlay = __webpack_require__(162);
+	var _TransitionOverlay = __webpack_require__(164);
 
 	var _TransitionOverlay2 = _interopRequireDefault(_TransitionOverlay);
 
-	var _TransitionStack = __webpack_require__(164);
+	var _TransitionStack = __webpack_require__(165);
 
 	var _TransitionStack2 = _interopRequireDefault(_TransitionStack);
 
-	var _utils = __webpack_require__(163);
+	var _utils = __webpack_require__(162);
 
 	var _react = __webpack_require__(1);
 
@@ -20202,64 +20237,67 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var defaultOptions = {
-	    /// overlay options ///   
+	var getDefaultOptions = function getDefaultOptions() {
+	    return {
+	        /// overlay options ///   
+	        useOverlay: true,
 
-	    overlayTransitionDuration: 200,
+	        overlayTransitionDuration: 200,
 
-	    overlayTransitionShowStyles: {
-	        backgroundColor: 'rgba(0,0,0,0.5)'
-	    },
+	        overlayTransitionShowStyles: {
+	            backgroundColor: 'rgba(0,0,0,0.5)'
+	        },
 
-	    overlayTransitionHideStyles: {
-	        backgroundColor: 'rgba(0,0,0,0)'
-	    },
+	        overlayTransitionHideStyles: {
+	            backgroundColor: 'rgba(0,0,0,0)'
+	        },
 
-	    overlayStyles: {
-	        position: 'fixed',
-	        left: 0,
-	        top: 0,
-	        width: '100%',
-	        height: '100%',
-	        zIndex: 1000,
-	        overflow: 'auto'
-	    },
+	        overlayStyles: {
+	            position: 'fixed',
+	            left: 0,
+	            top: 0,
+	            width: '100%',
+	            height: '100%',
+	            zIndex: 1000,
+	            overflow: 'auto'
+	        },
 
-	    /// modal options ///
+	        /// modal options ///
 
-	    modalTransitionDuration: 200,
+	        modalTransitionDuration: 200,
 
-	    modalTransitionShowStyles: {
-	        transform: 'scale(1)',
-	        opacity: 1
-	    },
+	        modalTransitionShowStyles: {
+	            transform: 'scale(1)',
+	            opacity: 1
+	        },
 
-	    modalTransitionHideStyles: {
-	        transform: 'scale(0.7)',
-	        opacity: 0
-	    },
+	        modalTransitionHideStyles: {
+	            transform: 'scale(0.7)',
+	            opacity: 0
+	        },
 
-	    modalStyles: {
-	        width: '60%',
-	        backgroundColor: 'white',
-	        borderRadius: '5px',
-	        margin: '3.5rem auto'
-	    }
+	        modalStyles: {
+	            width: '60%',
+	            backgroundColor: 'white',
+	            borderRadius: '5px',
+	            margin: '3.5rem auto'
+	        }
+	    };
 	};
 
 	var ModalFactory = function () {
 	    function ModalFactory(options) {
 	        _classCallCheck(this, ModalFactory);
 
-	        this.options = (0, _utils.mixDeep)(defaultOptions, options);
+	        this.options = (0, _utils.mix)(getDefaultOptions(), options);
 
 	        var transitionOverlay = this.createTransitionOverlay(this.options);
 
 	        // use transitionOverlay as bottom transition
-	        var modalStack = new _TransitionStack2.default({
+	        var modalStack = new _TransitionStack2.default(this.options.useOverlay ? {
 	            close: transitionOverlay.open.bind(transitionOverlay),
 	            open: transitionOverlay.close.bind(transitionOverlay)
-	        });
+	        } : null);
 
 	        this.transitionOverlay = transitionOverlay;
 	        this.modalStack = modalStack;
@@ -20292,13 +20330,13 @@
 	                    hide: options.modalTransitionHideStyles
 	                },
 	                duration: options.modalTransitionDuration,
-	                container: this.transitionOverlay.getElement()
+	                container: options.useOverlay ? this.transitionOverlay.getElement() : document.body
 	            });
 	        }
 	    }, {
 	        key: 'create',
 	        value: function create(Component, options) {
-	            var transitionModal = this.createTransitionModal((0, _utils.mixDeep)(this.options, options));
+	            var transitionModal = this.createTransitionModal((0, _utils.mix)(this.options, options));
 	            var modalStack = this.modalStack;
 
 	            return function (props) {
@@ -20343,9 +20381,9 @@
 	    value: true
 	});
 
-	var _utils = __webpack_require__(163);
+	var _utils = __webpack_require__(162);
 
-	var _Transition = __webpack_require__(165);
+	var _Transition = __webpack_require__(163);
 
 	var _Transition2 = _interopRequireDefault(_Transition);
 
@@ -20409,72 +20447,9 @@
 
 /***/ },
 /* 162 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _utils = __webpack_require__(163);
-
-	var _TransitionElement2 = __webpack_require__(161);
-
-	var _TransitionElement3 = _interopRequireDefault(_TransitionElement2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TransitionOverlay = function (_TransitionElement) {
-	    _inherits(TransitionOverlay, _TransitionElement);
-
-	    function TransitionOverlay() {
-	        _classCallCheck(this, TransitionOverlay);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TransitionOverlay).apply(this, arguments));
-	    }
-
-	    _createClass(TransitionOverlay, [{
-	        key: 'open',
-	        value: function open() {
-	            this.containerOverflow = this.container.style.overflow;
-	            (0, _utils.setStyle)(this.container, {
-	                overflow: 'hidden'
-	            });
-	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'open', this).call(this);
-	        }
-	    }, {
-	        key: 'close',
-	        value: function close() {
-	            (0, _utils.setStyle)(this.container, {
-	                overflow: this.containerOverflow
-	            });
-	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'close', this).call(this);
-	        }
-	    }]);
-
-	    return TransitionOverlay;
-	}(_TransitionElement3.default);
-
-	exports.default = TransitionOverlay;
-
-/***/ },
-/* 163 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -20483,73 +20458,12 @@
 	    Object.assign(element.style, styles);
 	};
 
-	var mixDeep = exports.mixDeep = function mixDeep(a, b) {
-	    if (b === undefined) {
-	        return a;
-	    }
-	    if (a && b && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && (typeof b === 'undefined' ? 'undefined' : _typeof(b)) === 'object') {
-	        return Object.keys(a).concat(Object.keys(b)).reduce(function (ret, key) {
-	            ret[key] = mixDeep(a[key], b[key]);
-	            return ret;
-	        }, {});
-	    }
-	    return b;
+	var mix = exports.mix = function mix(a, b) {
+	    return Object.assign({}, a, b);
 	};
 
 /***/ },
-/* 164 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var TransitionStack = function () {
-	    function TransitionStack(bottomTransition) {
-	        _classCallCheck(this, TransitionStack);
-
-	        this.stack = [bottomTransition];
-	    }
-
-	    _createClass(TransitionStack, [{
-	        key: "push",
-	        value: function push(transition) {
-	            var _this = this;
-
-	            return this.peek().close(this.stack.length !== 1).then(function () {
-	                _this.stack.push(transition);
-	                return transition.open();
-	            });
-	        }
-	    }, {
-	        key: "pop",
-	        value: function pop() {
-	            var _this2 = this;
-
-	            return this.stack.pop().close(this.stack.length !== 1).then(function () {
-	                return _this2.peek().open(_this2.stack.length !== 1);
-	            });
-	        }
-	    }, {
-	        key: "peek",
-	        value: function peek() {
-	            return this.stack[this.stack.length - 1];
-	        }
-	    }]);
-
-	    return TransitionStack;
-	}();
-
-	exports.default = TransitionStack;
-
-/***/ },
-/* 165 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20562,7 +20476,7 @@
 	    value: true
 	});
 
-	var _utils = __webpack_require__(163);
+	var _utils = __webpack_require__(162);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -20667,6 +20581,133 @@
 	}();
 
 	exports.default = Transition;
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _utils = __webpack_require__(162);
+
+	var _TransitionElement2 = __webpack_require__(161);
+
+	var _TransitionElement3 = _interopRequireDefault(_TransitionElement2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TransitionOverlay = function (_TransitionElement) {
+	    _inherits(TransitionOverlay, _TransitionElement);
+
+	    function TransitionOverlay() {
+	        _classCallCheck(this, TransitionOverlay);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TransitionOverlay).apply(this, arguments));
+	    }
+
+	    _createClass(TransitionOverlay, [{
+	        key: 'open',
+	        value: function open() {
+	            this.containerOverflow = this.container.style.overflow;
+	            (0, _utils.setStyle)(this.container, {
+	                overflow: 'hidden'
+	            });
+	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'open', this).call(this);
+	        }
+	    }, {
+	        key: 'close',
+	        value: function close() {
+	            (0, _utils.setStyle)(this.container, {
+	                overflow: this.containerOverflow
+	            });
+	            return _get(Object.getPrototypeOf(TransitionOverlay.prototype), 'close', this).call(this);
+	        }
+	    }]);
+
+	    return TransitionOverlay;
+	}(_TransitionElement3.default);
+
+	exports.default = TransitionOverlay;
+
+/***/ },
+/* 165 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var resloveNow = new Promise(function (resolve) {
+	    resolve();
+	});
+
+	var emptyTransition = {
+	    close: function close() {
+	        return resloveNow;
+	    },
+
+	    open: function open() {
+	        return resloveNow;
+	    }
+	};
+
+	var TransitionStack = function () {
+	    function TransitionStack(bottomTransition) {
+	        _classCallCheck(this, TransitionStack);
+
+	        this.stack = [bottomTransition || emptyTransition];
+	    }
+
+	    _createClass(TransitionStack, [{
+	        key: "push",
+	        value: function push(transition) {
+	            var _this = this;
+
+	            return this.peek().close(this.stack.length !== 1).then(function () {
+	                _this.stack.push(transition);
+	                return transition.open();
+	            });
+	        }
+	    }, {
+	        key: "pop",
+	        value: function pop() {
+	            var _this2 = this;
+
+	            return this.stack.pop().close(this.stack.length !== 1).then(function () {
+	                return _this2.peek().open(_this2.stack.length !== 1);
+	            });
+	        }
+	    }, {
+	        key: "peek",
+	        value: function peek() {
+	            return this.stack[this.stack.length - 1];
+	        }
+	    }]);
+
+	    return TransitionStack;
+	}();
+
+	exports.default = TransitionStack;
 
 /***/ }
 /******/ ]);
