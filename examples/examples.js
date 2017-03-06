@@ -143,18 +143,19 @@ let noOverlayModalFactory = new ModalFactory({
     useOverlay: false,
 
     modalTransitionShowStyles: {
+        transform: 'translate(0, 0)',
         opacity: 1
     },
 
-    modalTransitionHideStyles: {
+    modalTransitionHideStyles: {        
+        transform: 'translate(0, 100%)',
         opacity: 0      
     },
 
     modalStyles: {
         position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+        bottom: '10px',
+        right: '10px',
         width: '400px',
         border: '1px solid #ccc',
         margin: 'auto',
