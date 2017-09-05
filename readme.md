@@ -162,6 +162,7 @@ notify({
 ```
 const defaultOptions = {
     /// overlay options ///    
+    useOverlay: true,
 
     overlayTransitionDuration: 200,
 
